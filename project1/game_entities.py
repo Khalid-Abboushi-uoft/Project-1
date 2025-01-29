@@ -58,10 +58,11 @@ class Item:
     """An item in our text adventure game world.
 
     Instance Attributes:
-        - # TODO Describe each instance attribute here
-
-    Representation Invariants:
-        - # TODO Describe any necessary representation invariants
+        - name: The name of the item
+        - description: A short description of the item
+        - start_position: The ID of the location where this item starts
+        - target_position: The ID of the location where this item should be returned (if applicable)
+        - target_points: The number of points this item contributes if placed correctly
     """
     name: str
     description: str
