@@ -29,7 +29,7 @@ class Location:
         - # TODO Describe each instance attribute here
 
     Representation Invariants:
-        - # TODO Describe any necessary representation invariants
+        - id_num > 0
     """
     id_num: int
     brief_description: str
