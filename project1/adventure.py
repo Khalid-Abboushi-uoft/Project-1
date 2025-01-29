@@ -58,20 +58,9 @@ class AdventureGame:
         Preconditions:
         - game_data_file is the filename of a valid game data JSON file
         """
-
-        # NOTES:
-        # You may add parameters/attributes/methods to this class as you see fit.
-
-        # Requirements:
-        # 1. Make sure the Location class is used to represent each location.
-        # 2. Make sure the Item class is used to represent each item.
-
-        # Suggested helper method (you can remove and load these differently if you wish to do so):
-        self._locations, self._items = self._load_game_data(game_data_file)
-
-        # Suggested attributes (you can remove and track these differently if you wish to do so):
-        self.current_location_id = initial_location_id  # game begins at this location
-        self.ongoing = True  # whether the game is ongoing
+        self._locations, self._items, self._puzzles = self._load_game_data(game_data_file)
+        self.current_location_id = initial_location_id
+        self.ongoing = True
 
     @staticmethod
     def _load_game_data(filename: str) -> tuple[Dict[int, Location], Dict[str, Item], Dict[str, Puzzle]]:
