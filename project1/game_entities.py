@@ -63,15 +63,6 @@ class Item:
     Representation Invariants:
         - # TODO Describe any necessary representation invariants
     """
-
-    # NOTES:
-    # This is just a suggested starter class for Item.
-    # You may change these parameters and the data available for each Item object as you see fit.
-    # (The current parameters correspond to the example in the handout).
-    #
-    # The only thing you must NOT change is the name of this class: Item.
-    # All item objects in your game MUST be represented as an instance of this class.
-
     name: str
     description: str
     start_position: int
