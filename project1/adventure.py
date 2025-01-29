@@ -24,7 +24,6 @@ from typing import Optional, Dict, List
 from game_entities import Location, Item, Puzzle
 from proj1_event_logger import Event, EventList
 
-
 # Note: You may add in other import statements here as needed
 
 # Note: You may add helper functions, classes, etc. below as needed
