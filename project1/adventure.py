@@ -92,7 +92,17 @@ class AdventureGame:
         # TODO: Add Item objects to the items list; your code should be structured similarly to the loop above
         # YOUR CODE BELOW
 
-        return locations, items
+        puzzles = {
+            puzzle_name: Puzzle(
+                name=puzzle_name,
+                description=puzzle_data['description'],
+                required_items=puzzle_data['required_items'],
+                solution=puzzle_data['solution']
+            )
+            for puzzle_name, puzzle_data in data.get('puzzles', {}).items()
+        }
+
+        return locations, items, puzzles
 
     def get_location(self, loc_id: Optional[int] = None) -> Location:
         """Return Location object associated with the provided location ID.
