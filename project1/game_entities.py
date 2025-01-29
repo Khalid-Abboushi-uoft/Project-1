@@ -73,6 +73,7 @@ class Item:
     # All item objects in your game MUST be represented as an instance of this class.
 
     name: str
+    description: str
     start_position: int
     target_position: Optional[int]
     target_points: int
