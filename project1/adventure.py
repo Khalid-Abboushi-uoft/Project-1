@@ -28,7 +28,6 @@ from proj1_event_logger import Event, EventList
 
 # Note: You may add helper functions, classes, etc. below as needed
 
-
 class AdventureGame:
     """A text adventure game class storing all location, item and map data.
 
