@@ -80,7 +80,7 @@ class AdventureGame:
         and (2) a list of all Item objects."""
 
         with open(filename, 'r') as f:
-            data = json.load(f)  # This loads all the data from the JSON file
+            data = json.load(f)
 
         locations = {
             loc_data['id']: Location(
