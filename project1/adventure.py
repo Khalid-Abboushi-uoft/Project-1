@@ -82,11 +82,18 @@ class AdventureGame:
         with open(filename, 'r') as f:
             data = json.load(f)  # This loads all the data from the JSON file
 
-        locations = {}
-        for loc_data in data['locations']:  # Go through each element associated with the 'locations' key in the file
-            location_obj = Location(loc_data['id'], loc_data['brief_description'], loc_data['long_description'],
-                                    loc_data['available_commands'], loc_data['items'])
-            locations[loc_data['id']] = location_obj
+        locations = {
+            loc_data['id']: Location(
+                id_num=loc_data['id'],
+                brief_description=loc_data['brief_description'],
+                long_description=loc_data.get('long_description', ''),
+                available_commands=loc_data.get('available_commands', {}),
+                items=loc_data.get('items', []),
+                locked=loc_data.get('locked', False),
+                visited=False
+            )
+            for loc_data in data['locations']
+        }
 
         items = {
             item_data['name']: Item(
