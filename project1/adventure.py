@@ -38,12 +38,6 @@ class AdventureGame:
     Representation Invariants:
         - # TODO add any appropriate representation invariants as needed
     """
-
-    # Private Instance Attributes (do NOT remove these two attributes):
-    #   - _locations: a mapping from location id to Location object.
-    #                       This represents all the locations in the game.
-    #   - _items: a list of Item objects, representing all items in the game.
-
     _locations: dict[int, Location]
     _items: dict[str, Item]
     _puzzles: dict[str, Puzzle]
