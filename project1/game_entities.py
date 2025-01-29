@@ -4,8 +4,8 @@ Instructions (READ THIS FIRST!)
 ===============================
 
 This Python module contains the entity classes for Project 1, to be imported and used by
- the `adventure` module.
- Please consult the project handout for instructions and details.
+the `adventure` module.
+Please consult the project handout for instructions and details.
 
 Copyright and Usage Information
 ===============================
@@ -18,18 +18,15 @@ please consult our Course Syllabus.
 
 This file is Copyright (c) 2025 CSC111 Teaching Team
 """
-from dataclasses import dataclass
-
-
-from dataclasses import dataclass
 from typing import Dict, List, Optional
 
-@dataclass
+
 class Location:
     """A location in our text adventure game world.
 
     Instance Attributes:
         - id_num: The unique ID of this location
+        - name: The name of this location
         - brief_description: A short description of the location
         - long_description: A detailed description of the location
         - available_commands: A dictionary mapping commands (e.g., 'go east') to location IDs
@@ -40,15 +37,19 @@ class Location:
     Representation Invariants:
         - id_num > 0
     """
-    id_num: int
-    brief_description: str
-    long_description: str
-    available_commands: Dict[str, int]
-    items: List[str]
-    locked: bool = False
-    visited: bool = False
+    def __init__(self, id_num: int, name: str, brief_description: str, long_description: str,
+                 available_commands: Dict[str, int], items: List[str], locked: bool = False,
+                 visited: bool = False) -> None:
+        """Initialize a new location."""
+        self.id_num = id_num
+        self.name = name
+        self.brief_description = brief_description
+        self.long_description = long_description
+        self.available_commands = available_commands
+        self.items = items
+        self.locked = locked
+        self.visited = visited
 
-@dataclass
 class Item:
     """An item in our text adventure game world.
 
@@ -59,13 +60,16 @@ class Item:
         - target_position: The ID of the location where this item should be returned (if applicable)
         - target_points: The number of points this item contributes if placed correctly
     """
-    name: str
-    description: str
-    start_position: int
-    target_position: Optional[int]
-    target_points: int
+    def __init__(self, name: str, description: str, start_position: int, target_position: Optional[int],
+                 target_points: int) -> None:
+        """Initialize a new item."""
+        self.name = name
+        self.description = description
+        self.start_position = start_position
+        self.target_position = target_position
+        self.target_points = target_points
 
-@dataclass
+
 class Puzzle:
     """A puzzle in our text adventure game world.
 
@@ -76,11 +80,13 @@ class Puzzle:
         - solution: The correct solution to the puzzle
         - solved: Whether the puzzle has been solved
     """
-    name: str
-    description: str
-    required_items: List[str]
-    solution: str
-    solved: bool = False
+    def __init__(self, name: str, description: str, required_items: List[str], solution: str, solved: bool = False) -> None:
+        """Initialize a new puzzle."""
+        self.name = name
+        self.description = description
+        self.required_items = required_items
+        self.solution = solution
+        self.solved = solved
 
 
 if __name__ == "__main__":
