@@ -78,10 +78,18 @@ class Item:
     target_points: int
 
 
-# Note: Other entities you may want to add, depending on your game plan:
-# - Puzzle class to represent special locations (could inherit from Location class if it seems suitable)
-# - Player class
-# etc.
+    Instance Attributes:
+        - name: The name of the puzzle
+        - description: A short description of the puzzle
+        - required_items: A list of items required to solve the puzzle
+        - solution: The correct solution to the puzzle
+        - solved: Whether the puzzle has been solved
+    """
+    name: str
+    description: str
+    required_items: List[str]
+    solution: str
+    solved: bool = False
 
 if __name__ == "__main__":
     pass
