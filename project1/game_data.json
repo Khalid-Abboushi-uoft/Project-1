@@ -3,67 +3,167 @@
     {
       "id": 1,
       "name": "Your Room",
-      "grid_position": [0, 0],
+      "grid_position": [
+        0,
+        0
+      ],
       "brief_description": "Your private dorm room. Your laptop is here.",
-      "available_commands": { "go east": 2 }
+      "available_commands": {
+        "go east": 2
+      }
     },
     {
       "id": 2,
       "name": "Dorms",
-      "grid_position": [0, 1],
+      "grid_position": [
+        0,
+        1
+      ],
       "brief_description": "The dormitory hallway, leading to other rooms.",
-      "available_commands": { "go west": 1, "go east": 4 }
+      "available_commands": {
+        "go west": 1,
+        "go east": 4
+      }
     },
     {
       "id": 3,
       "name": "Khalid's Room",
-      "grid_position": [1, 1],
+      "grid_position": [
+        1,
+        1
+      ],
       "brief_description": "Khalid’s room. There's a CD player here.",
-      "available_commands": { "go south": -1, "go east": 2 }
+      "available_commands": {
+        "go south": -1,
+        "go east": 2
+      }
     },
     {
       "id": 4,
       "name": "Hasan's Room",
-      "grid_position": [0, 2],
+      "grid_position": [
+        0,
+        2
+      ],
       "brief_description": "Hasan's room. The door is locked.",
-      "available_commands": { "go west": 2, "go east": 5 },
+      "available_commands": {
+        "go west": 2,
+        "go east": 5
+      },
       "locked": true
     },
     {
       "id": 5,
       "name": "Streets",
-      "grid_position": [0, 4],
+      "grid_position": [
+        0,
+        4
+      ],
       "brief_description": "A busy street connecting different locations.",
-      "available_commands": { "go west": 4, "go east": 6 }
+      "available_commands": {
+        "go west": 4,
+        "go east": 6
+      }
     },
     {
       "id": 6,
       "name": "Library",
-      "grid_position": [1, 6],
+      "grid_position": [
+        1,
+        6
+      ],
       "brief_description": "A quiet library filled with books.",
-      "available_commands": { "go west": 5 }
+      "available_commands": {
+        "go west": 5
+      }
     },
     {
       "id": 7,
       "name": "College",
-      "grid_position": [3, 0],
+      "grid_position": [
+        3,
+        0
+      ],
       "brief_description": "The College Building. Students are chatting.",
-      "available_commands": { "go east": 5 }
+      "available_commands": {
+        "go east": 5
+      }
     },
     {
       "id": 8,
       "name": "Bahen",
-      "grid_position": [6, 2],
+      "grid_position": [
+        6,
+        2
+      ],
       "brief_description": "Bahen Center, where your classes take place.",
-      "available_commands": { "go north": 5 }
+      "available_commands": {
+        "go north": 5
+      }
     }
   ],
   "items": [
     {
-      "name": "toonie",
-      "description": "There is a toonie on the ground. Someone must have dropped it.",
-      "start_position": 1,
+      "name": "USB drive",
+      "description": "A small USB drive containing your project files.",
+      "start_position": 6,
+      "target_position": 1,
+      "target_points": 10
+    },
+    {
+      "name": "lockpick",
+      "description": "A simple lockpick that might help open locked doors.",
+      "start_position": 6,
       "target_position": 4,
+      "target_points": 5
+    },
+    {
+      "name": "Lucky UofT Mug",
+      "description": "Your lucky mug that has been with you through thick and thin.",
+      "start_position": 7,
+      "target_position": 1,
+      "target_points": 10
+    },
+    {
+      "name": "Batteries",
+      "description": "Two AA batteries, might be useful for something electronic.",
+      "start_position": 7,
+      "target_position": 3,
+      "target_points": 5
+    },
+    {
+      "name": "Laptop charger",
+      "description": "Your laptop charger, crucial for finishing your project.",
+      "start_position": 8,
+      "target_position": 1,
+      "target_points": 10
+    },
+    {
+      "name": "Computer",
+      "description": "Your personal computer. You need to submit your assignment from here.",
+      "start_position": 1,
+      "target_position": null,
+      "target_points": 0
+    },
+    {
+      "name": "Photo with birthday on back",
+      "description": "A photo with 'May 25, 2006' written on the back.",
+      "start_position": 1,
+      "target_position": null,
+      "target_points": 0
+    },
+    {
+      "name": "CD player",
+      "description": "A portable CD player. It needs batteries to work.",
+      "start_position": 3,
+      "target_position": null,
+      "target_points": 0
+    },
+    {
+      "name": "Movie CD",
+      "description": "A CD labeled 'Madagascar'.",
+      "start_position": 4,
+      "target_position": 3,
       "target_points": 5
     }
   ]
