@@ -74,7 +74,7 @@ class Item:
 
     name: str
     start_position: int
-    target_position: int
+    target_position: Optional[int]
     target_points: int
 
 @dataclass
