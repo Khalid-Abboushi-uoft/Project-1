@@ -45,9 +45,10 @@ class AdventureGame:
     #   - _items: a list of Item objects, representing all items in the game.
 
     _locations: dict[int, Location]
-    _items: list[Item]
-    current_location_id: int  # Suggested attribute, can be removed
-    ongoing: bool  # Suggested attribute, can be removed
+    _items: dict[str, Item]
+    _puzzles: dict[str, Puzzle]
+    current_location_id: int
+    ongoing: bool
 
     def __init__(self, game_data_file: str, initial_location_id: int) -> None:
         """
