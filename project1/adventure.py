@@ -69,6 +69,7 @@ class AdventureGame:
         locations = {
             loc_data['id']: Location(
                 id_num=loc_data['id'],
+                name=loc_data['name'],
                 brief_description=loc_data['brief_description'],
                 long_description=loc_data.get('long_description', ''),
                 available_commands=loc_data.get('available_commands', {}),
