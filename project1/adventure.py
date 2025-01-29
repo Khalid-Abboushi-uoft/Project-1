@@ -19,7 +19,7 @@ This file is Copyright (c) 2025 CSC111 Teaching Team
 """
 from __future__ import annotations
 import json
-from typing import Optional
+from typing import Optional, Dict, List
 
 from game_entities import Location, Item
 from proj1_event_logger import Event, EventList
