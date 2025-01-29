@@ -21,7 +21,7 @@ from __future__ import annotations
 import json
 from typing import Optional, Dict, List
 
-from game_entities import Location, Item
+from game_entities import Location, Item, Puzzle
 from proj1_event_logger import Event, EventList
 
 
