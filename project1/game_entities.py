@@ -31,27 +31,13 @@ class Location:
     Representation Invariants:
         - # TODO Describe any necessary representation invariants
     """
-
-    # This is just a suggested starter class for Location.
-    # You may change/add parameters and the data available for each Location object as you see fit.
-    #
-    # The only thing you must NOT change is the name of this class: Location.
-    # All locations in your game MUST be represented as an instance of this class.
-
-    def __init__(self, location_id, brief_description, long_description, available_commands, items,
-                 visited=False) -> None:
-        """Initialize a new location.
-
-        # TODO Add more details here about the initialization if needed
-        """
-
-        self.id_num = location_id
-        self.brief_description = brief_description
-        self.long_description = long_description
-        self.available_commands = available_commands
-        self.items = items
-        self.visited = visited
-
+    id_num: int
+    brief_description: str
+    long_description: str
+    available_commands: Dict[str, int]
+    items: List[str]
+    locked: bool = False
+    visited: bool = False
 
 @dataclass
 class Item:
