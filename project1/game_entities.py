@@ -21,6 +21,9 @@ This file is Copyright (c) 2025 CSC111 Teaching Team
 from dataclasses import dataclass
 
 
+from dataclasses import dataclass
+from typing import Dict, List, Optional
+
 @dataclass
 class Location:
     """A location in our text adventure game world.
