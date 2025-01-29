@@ -26,7 +26,13 @@ class Location:
     """A location in our text adventure game world.
 
     Instance Attributes:
-        - # TODO Describe each instance attribute here
+        - id_num: The unique ID of this location
+        - brief_description: A short description of the location
+        - long_description: A detailed description of the location
+        - available_commands: A dictionary mapping commands (e.g., 'go east') to location IDs
+        - items: A list of item names available at this location
+        - locked: Whether this location is locked and requires an item to unlock
+        - visited: Whether this location has been visited before
 
     Representation Invariants:
         - id_num > 0
