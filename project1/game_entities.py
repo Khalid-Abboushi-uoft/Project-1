@@ -50,6 +50,7 @@ class Location:
         self.locked = locked
         self.visited = visited
 
+
 class Item:
     """An item in our text adventure game world.
 
