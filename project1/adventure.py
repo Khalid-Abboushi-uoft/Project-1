@@ -88,9 +88,16 @@ class AdventureGame:
                                     loc_data['available_commands'], loc_data['items'])
             locations[loc_data['id']] = location_obj
 
-        items = []
-        # TODO: Add Item objects to the items list; your code should be structured similarly to the loop above
-        # YOUR CODE BELOW
+        items = {
+            item_data['name']: Item(
+                name=item_data['name'],
+                description=item_data['description'],
+                start_position=item_data['start_position'],
+                target_position=item_data.get('target_position', None),
+                target_points=item_data.get('target_points', 0)
+            )
+            for item_data in data['items']
+        }
 
         puzzles = {
             puzzle_name: Puzzle(
