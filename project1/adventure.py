@@ -106,7 +106,20 @@ class AdventureGame:
         """Return Location object associated with the provided location ID.
         If no ID is provided, return the Location object associated with the current location.
         """
-        return self._locations[loc_id if loc_id is not None else self.current_location_id]
+        target_id = loc_id if loc_id is not None else self.current_location_id
+        current_loc = self._locations[target_id]  # ✅ Renamed 'location' to 'current_loc'
+
+        # If location is locked, check if the player has the required item
+        if current_loc.locked and "lockpick" not in self._inventory:
+            print(f"{current_loc.name} is locked! You need a lockpick to enter.")
+            return self._locations[self.current_location_id]  # Stay in current location
+
+        # If player has lockpick, unlock the location
+        if current_loc.locked and "lockpick" in self._inventory:
+            print(f"You used your lockpick to unlock {current_loc.name}.")
+            current_loc.locked = False
+
+        return current_loc  # ✅ Using the new variable name
 
     def pick_up_item(self, item_name: str) -> None:
         """Allow the player to pick up an item if it is in the current location."""
