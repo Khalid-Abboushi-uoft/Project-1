@@ -28,37 +28,37 @@ from proj1_event_logger import Event, EventList
 
 # Note: You may add helper functions, classes, etc. below as needed
 
+
 class AdventureGame:
     """A text adventure game class storing all location, item and map data.
 
     Instance Attributes:
         - _locations: a mapping from location id to Location object.
-        - _items: a list of Item objects, representing all items in the game.
+        - _items: a dictionary of Item objects, representing all items in the game.
         - _puzzles: a dictionary mapping puzzle names to Puzzle objects.
+        - _inventory: a list of items currently held by the player.
         - current_location_id: The ID of the player's current location.
         - ongoing: Whether the game is ongoing.
-
-    Representation Invariants:
-        - # TODO add any appropriate representation invariants as needed
+        - score: The player's score based on completed objectives.
     """
     _locations: dict[int, Location]
     _items: dict[str, Item]
     _puzzles: dict[str, Puzzle]
+    _inventory: List[str]
     current_location_id: int
     ongoing: bool
+    score: int
 
     def __init__(self, game_data_file: str, initial_location_id: int) -> None:
         """
         Initialize a new text adventure game, based on the data in the given file, setting starting location of game
         at the given initial location ID.
-        (note: you are allowed to modify the format of the file as you see fit)
-
-        Preconditions:
-        - game_data_file is the filename of a valid game data JSON file
         """
         self._locations, self._items, self._puzzles = self._load_game_data(game_data_file)
         self.current_location_id = initial_location_id
         self.ongoing = True
+        self._inventory = []  # Start with an empty inventory
+        self.score = 0  # Initialize score to zero
 
     @staticmethod
     def _load_game_data(filename: str) -> tuple[Dict[int, Location], Dict[str, Item], Dict[str, Puzzle]]:
@@ -108,62 +108,54 @@ class AdventureGame:
         """
         return self._locations[loc_id if loc_id is not None else self.current_location_id]
 
-if __name__ == "__main__":
-    # When you are ready to check your work with python_ta, uncomment the following lines.
-    # (Delete the "#" and space before each line.)
-    # IMPORTANT: keep this code indented inside the "if __name__ == '__main__'" block
-    # import python_ta
-    # python_ta.check_all(config={
-    #     'max-line-length': 120,
-    #     'disable': ['R1705', 'E9998', 'E9999']
-    # })
+    def pick_up_item(self, item_name: str) -> None:
+        """Allow the player to pick up an item if it is in the current location."""
+        location = self.get_location()
+        if item_name in location.items:
+            self._inventory.append(item_name)
+            location.items.remove(item_name)
+            print(f"You picked up {item_name}.")
+        else:
+            print("You can't pick that up.")
 
-    game_log = EventList()  # This is REQUIRED as one of the baseline requirements
-    game = AdventureGame('game_data.json', 1)  # load data, setting initial location ID to 1
-    menu = ["look", "inventory", "score", "undo", "log", "quit"]  # Regular menu options available at each location
+    def use_item(self, item_name: str) -> None:
+        """Allow the player to use an item if it's in their inventory."""
+        if item_name in self._inventory:
+            print(f"You used {item_name}.")
+            self._inventory.remove(item_name)
+        else:
+            print("You don't have that item.")
+
+    def check_score(self) -> None:
+        """Display the player's current score."""
+        print(f"Your score is: {self.score}")
+
+
+if __name__ == "__main__":
+    game_log = EventList()
+    game = AdventureGame('game_data.json', 1)
+    menu = ["look", "inventory", "score", "undo", "log", "quit"]
     choice = None
 
-    # Note: You may modify the code below as needed; the following starter code is just a suggestion
     while game.ongoing:
-        # Note: If the loop body is getting too long, you should split the body up into helper functions
-        # for better organization. Part of your marks will be based on how well-organized your code is.
-
         location = game.get_location()
-
-        # TODO: Add new Event to game log to represent current game location
-        #  Note that the <choice> variable should be the command which led to this event
-        # YOUR CODE HERE
-
-        # TODO: Depending on whether or not it's been visited before,
-        #  print either full description (first time visit) or brief description (every subsequent visit) of location
-        # YOUR CODE HERE
-
-        # Display possible actions at this location
         print("What to do? Choose from: look, inventory, score, undo, log, quit")
         print("At this location, you can also:")
         for action in location.available_commands:
             print("-", action)
-
-        # Validate choice
         choice = input("\nEnter action: ").lower().strip()
         while choice not in location.available_commands and choice not in menu:
             print("That was an invalid option; try again.")
             choice = input("\nEnter action: ").lower().strip()
-
         print("========")
         print("You decided to:", choice)
-
         if choice in menu:
-            # TODO: Handle each menu command as appropriate
-            # Note: For the "undo" command, remember to manipulate the game_log event list to keep it up-to-date
             if choice == "log":
                 game_log.display_events()
-            # ENTER YOUR CODE BELOW to handle other menu commands (remember to use helper functions as appropriate)
-
+            elif choice == "inventory":
+                print("Inventory:", game._inventory)
+            elif choice == "score":
+                game.check_score()
         else:
-            # Handle non-menu actions
             result = location.available_commands[choice]
             game.current_location_id = result
-
-            # TODO: Add in code to deal with actions which do not change the location (e.g. taking or using an item)
-            # TODO: Add in code to deal with special locations (e.g. puzzles) as needed for your game
