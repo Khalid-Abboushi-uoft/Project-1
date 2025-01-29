@@ -74,11 +74,8 @@ class AdventureGame:
         self.ongoing = True  # whether the game is ongoing
 
     @staticmethod
-    def _load_game_data(filename: str) -> tuple[dict[int, Location], list[Item]]:
-        """Load locations and items from a JSON file with the given filename and
-        return a tuple consisting of (1) a dictionary of locations mapping each game location's ID to a Location object,
-        and (2) a list of all Item objects."""
-
+    def _load_game_data(filename: str) -> tuple[Dict[int, Location], Dict[str, Item], Dict[str, Puzzle]]:
+        """Load game locations, items, and puzzles from a JSON file."""
         with open(filename, 'r') as f:
             data = json.load(f)
 
