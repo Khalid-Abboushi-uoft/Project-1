@@ -77,6 +77,9 @@ class Item:
     target_position: int
     target_points: int
 
+@dataclass
+class Puzzle:
+    """A puzzle in our text adventure game world.
 
     Instance Attributes:
         - name: The name of the puzzle
