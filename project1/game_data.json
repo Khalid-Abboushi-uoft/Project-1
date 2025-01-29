@@ -65,69 +65,6 @@
       "start_position": 1,
       "target_position": 4,
       "target_points": 5
-    },
-    {
-      "name": "USB drive",
-      "description": "A small USB drive that holds the only copy of your game project.",
-      "start_position": 6,
-      "target_position": 1,
-      "target_points": 10
-    },
-    {
-      "name": "lockpick",
-      "description": "A thin metal tool used to open locked doors. Might come in handy for Hasan's room.",
-      "start_position": 6,
-      "target_position": null,
-      "target_points": 0
-    },
-    {
-      "name": "Lucky UofT Mug",
-      "description": "A well-loved mug that has been with you through every deadline. You can't submit without it.",
-      "start_position": 7,
-      "target_position": 1,
-      "target_points": 5
-    },
-    {
-      "name": "Batteries",
-      "description": "Two AA batteries. They might be useful for something.",
-      "start_position": 7,
-      "target_position": null,
-      "target_points": 0
-    },
-    {
-      "name": "Laptop charger",
-      "description": "A power adapter for your laptop. Without this, your battery won’t last much longer.",
-      "start_position": 8,
-      "target_position": null,
-      "target_points": 0
-    },
-    {
-      "name": "Computer",
-      "description": "Your computer, where you must submit your project once everything is collected.",
-      "start_position": 1,
-      "target_position": null,
-      "target_points": 0
-    },
-    {
-      "name": "Photo",
-      "description": "A framed photo of you and your friends. On the back, it says 'May 25, 2006'.",
-      "start_position": 1,
-      "target_position": null,
-      "target_points": 0
-    },
-    {
-      "name": "CD player",
-      "description": "An old CD player. It needs two batteries to function.",
-      "start_position": 3,
-      "target_position": null,
-      "target_points": 0
-    },
-    {
-      "name": "Movie CD",
-      "description": "A classic movie CD. You need a working CD player to play it.",
-      "start_position": 4,
-      "target_position": null,
-      "target_points": 0
     }
   ]
 }
