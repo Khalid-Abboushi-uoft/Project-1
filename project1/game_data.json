@@ -2,6 +2,56 @@
   "locations": [
     {
       "id": 1,
+      "name": "Your Room",
+      "grid_position": [0, 0],
+      "brief_description": "Your private dorm room. Your laptop is here.",
+      "available_commands": { "go east": 2 }
+    },
+    {
+      "id": 2,
+      "name": "Dorms",
+      "grid_position": [0, 1],
+      "brief_description": "The dormitory hallway, leading to other rooms.",
+      "available_commands": { "go west": 1, "go east": 4 }
+    },
+    {
+      "id": 3,
+      "name": "Khalid's Room",
+      "grid_position": [1, 1],
+      "brief_description": "Khalid’s room. There's a CD player here.",
+      "available_commands": { "go south": -1, "go east": 2 }
+    },
+    {
+      "id": 4,
+      "name": "Hasan's Room",
+      "grid_position": [0, 2],
+      "brief_description": "Hasan's room. The door is locked.",
+      "available_commands": { "go west": 2, "go east": 5 },
+      "locked": true
+    },
+    {
+      "id": 5,
+      "name": "Streets",
+      "grid_position": [0, 4],
+      "brief_description": "A busy street connecting different locations.",
+      "available_commands": { "go west": 4, "go east": 6 }
+    },
+    {
+      "id": 6,
+      "name": "Library",
+      "grid_position": [1, 6],
+      "brief_description": "A quiet library filled with books.",
+      "available_commands": { "go west": 5 }
+    },
+    {
+      "id": 7,
+      "name": "College",
+      "grid_position": [3, 0],
+      "brief_description": "The College Building. Students are chatting.",
+      "available_commands": { "go east": 5 }
+    },
+    {
+      "id": 8,
       "name": "Bahen",
       "brief_description": "You are on the first floor of the Bahen Center. There are lecture halls to the West, and an exit from the building to main street to the East. You see something shiny on the ground -- looks like a toonie?",
       "long_description": "You are on the first floor of the Bahen Center. It's usually crowded at this time of the day, but today it's eerily quiet. Only a few students are studying at the table near the doors. You better not disturb them. One student is rushing down the corridor, wearing a heavy-looking backpack and carrying a textbook in their arms. There are lecture halls to the West, and an exit from the building to main street to the East.",
