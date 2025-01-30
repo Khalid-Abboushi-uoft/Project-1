@@ -95,8 +95,9 @@ class SimpleAdventureGame:
         """Return Location object associated with the provided location ID.
         If no ID is provided, return the Location object associated with the current location.
         """
-
-        # TODO: Complete this method as specified. Do not modify any of this function's specifications.
+        if loc_id is None:
+            return self._locations[self.current_location_id]
+        return self._locations[loc_id]
 
 
 class AdventureGameSimulation:
@@ -110,32 +111,32 @@ class AdventureGameSimulation:
 
     def __init__(self, game_data_file: str, initial_location_id: int, commands: list[str]) -> None:
         """Initialize a new game simulation based on the given game data, that runs through the given commands.
-
-        Preconditions:
-        - len(commands) > 0
-        - all commands in the given list are valid commands at each associated location in the game
         """
         self._events = EventList()
         self._game = SimpleAdventureGame(game_data_file, initial_location_id)
 
-        # TODO: Add first event (initial location, no previous command)
-        # Hint: self._game.get_location() gives you back the current location
+        # Add first event (initial location, no previous command)
+        initial_location = self._game.get_location()
+        first_event = Event(initial_location.id_num, initial_location.description, None)
+        self._events.add_event(first_event)
 
-        # TODO: Generate the remaining events based on the commands and initial location
-        # Hint: Call self.generate_events with the appropriate arguments
+        # Generate the remaining events
+        self.generate_events(commands, initial_location)
 
     def generate_events(self, commands: list[str], current_location: Location) -> None:
         """Generate all events in this simulation.
-
-        Preconditions:
-        - len(commands) > 0
-        - all commands in the given list are valid commands at each associated location in the game
         """
+        for command in commands:
+            if command in current_location.available_commands:
+                next_location_id = current_location.available_commands[command]
+                next_location = self._game.get_location(next_location_id)
 
-        # TODO: Complete this method as specified. For each command, generate the event and add
-        #  it to self._events.
-        # Hint: current_location.available_commands[command] will return the next location ID
-        # which executing <command> while in <current_location_id> leads to
+                # Create new event and add to the event list
+                new_event = Event(next_location.id_num, next_location.description, command)
+                self._events.add_event(new_event, command)
+
+                # Update current location
+                current_location = next_location
 
     def get_id_log(self) -> list[int]:
         """
@@ -172,12 +173,11 @@ class AdventureGameSimulation:
 
 
 if __name__ == "__main__":
-    pass
     # When you are ready to check your work with python_ta, uncomment the following lines.
     # (Delete the "#" and space before each line.)
     # IMPORTANT: keep this code indented inside the "if __name__ == '__main__'" block
-    # import python_ta
-    # python_ta.check_all(config={
-    #     'max-line-length': 120,
-    #     'disable': ['R1705', 'E9998', 'E9999']
-    # })
+    import python_ta
+    python_ta.check_all(config={
+        'max-line-length': 120,
+        'disable': ['R1705', 'E9998', 'E9999']
+    })
