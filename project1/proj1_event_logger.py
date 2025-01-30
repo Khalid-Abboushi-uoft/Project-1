@@ -89,19 +89,8 @@ class EventList:
         """Remove the last event from this event list.
         If the list is empty, do nothing.
         """
-        if self.is_empty():
-            return  # List is empty, do nothing
-
-        if self.first == self.last:
-            # Only one event in the list, remove it
-            self.first = None
-            self.last = None
-        else:
-            # Update the last event to be the previous event
-            self.last = self.last.prev
-            if self.last:
-                self.last.next = None
-                self.last.next_command = None  # Remove the command leading to the removed event
+        if self.event_log:
+            self.event_log.pop()
 
     def get_id_log(self) -> list[int]:
         """Return a list of all location IDs visited for each event in this list, in sequence."""
