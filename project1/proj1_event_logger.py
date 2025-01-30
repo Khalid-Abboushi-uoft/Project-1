@@ -95,14 +95,7 @@ class EventList:
     def get_id_log(self) -> list[int]:
         """Return a list of all location IDs visited for each event in this list, in sequence."""
 
-        id_log = []
-        curr = self.first
-
-        while curr:
-            id_log.append(curr.id_num)
-            curr = curr.next
-
-        return id_log
+        return [event for event in self.event_log]
 
     # Note: You may add other methods to this class as needed but DO NOT CHANGE THE SPECIFICATION OF ANY OF THE ABOVE
 
