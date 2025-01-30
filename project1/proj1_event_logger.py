@@ -65,8 +65,7 @@ class EventList:
     def __init__(self) -> None:
         """Initialize a new empty event list."""
 
-        self.first = None
-        self.last = None
+        self.event_log = []
 
     def display_events(self) -> None:
         """Display all events in chronological order."""
