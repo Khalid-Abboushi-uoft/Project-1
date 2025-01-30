@@ -83,17 +83,7 @@ class EventList:
         The given command is the command which was used to reach this new event, or None if this is the first
         event in the game.
         """
-        if self.last is None:
-            # If the list is empty, set both first and last to the new event
-            self.first = event
-        else:
-            # Otherwise, link the new event to the last event
-            self.last.next = event
-            event.prev = self.last
-            self.last.next_command = command  # Update the previous node's next_command
-
-            # Update last to the new event
-        self.last = event
+        self.event_log.append(event)
 
     def remove_last_event(self) -> None:
         """Remove the last event from this event list.
