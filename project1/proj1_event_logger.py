@@ -69,10 +69,9 @@ class EventList:
 
     def display_events(self) -> None:
         """Display all events in chronological order."""
-        curr = self.first
-        while curr:
-            print(f"Location: {curr.id_num}, Command: {curr.next_command}")
-            curr = curr.next
+        print("Event Log:")
+        for i, event in enumerate(self.event_log, 1):
+            print(f"{i}. {event}")
 
     def is_empty(self) -> bool:
         """Return whether this event list is empty."""
