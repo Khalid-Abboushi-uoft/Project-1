@@ -82,38 +82,21 @@ class AdventureGame:
     @staticmethod
     def _load_game_data(filename: str) -> tuple[dict[int, Location], list[Item]]:
         """Load locations and items from a JSON file with the given filename and
-        return a tuple consisting of:
-          (1) a dictionary of locations mapping each game location's ID to a Location object
-          (2) a list of all Item objects.
-        """
-        with open(filename, 'r') as f:
-            data = json.load(f)  # Load all game data from JSON
+        return a tuple consisting of (1) a dictionary of locations mapping each game location's ID to a Location object,
+        and (2) a list of all Item objects."""
 
-        # Load locations
+        with open(filename, 'r') as f:
+            data = json.load(f)  # This loads all the data from the JSON file
+
         locations = {}
-        for loc_data in data['locations']:
-            location_obj = Location(
-                id_num=loc_data['id'],
-                name=loc_data['name'],
-                brief_description=loc_data['brief_description'],
-                long_description=loc_data.get('long_description', ""),  # Default to empty if missing
-                available_commands=loc_data['available_commands'],
-                items=loc_data.get('items', []),  # Default to empty list if missing
-                locked=loc_data.get('locked', False)  # Default to False if missing
-            )
+        for loc_data in data['locations']:  # Go through each element associated with the 'locations' key in the file
+            location_obj = Location(loc_data['id'], loc_data['brief_description'], loc_data['long_description'],
+                                    loc_data['available_commands'], loc_data['items'])
             locations[loc_data['id']] = location_obj
 
-        # Load items
         items = []
-        for item_data in data['items']:
-            item_obj = Item(
-                name=item_data['name'],
-                description=item_data['description'],
-                start_position=item_data['start_position'],
-                target_position=item_data.get('target_position', None),  # Allow None if not present
-                target_points=item_data['target_points']
-            )
-            items.append(item_obj)
+        # TODO: Add Item objects to the items list; your code should be structured similarly to the loop above
+        # YOUR CODE BELOW
 
         return locations, items
 

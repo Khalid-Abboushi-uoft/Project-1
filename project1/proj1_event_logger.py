@@ -26,7 +26,7 @@ from dataclasses import dataclass
 from typing import Optional
 
 
-# TODO: Copy/paste your ex1_event_logger code below, and modify it if needed to fit your game
+# TODO: Copy/paste your x1_event_logeger code below, and modify it if needed to fit your game
 
 
 @dataclass
@@ -65,15 +65,13 @@ class EventList:
     def __init__(self) -> None:
         """Initialize a new empty event list."""
 
-        self.first = None
-        self.last = None
+        self.event_log = []
 
     def display_events(self) -> None:
         """Display all events in chronological order."""
-        curr = self.first
-        while curr:
-            print(f"Location: {curr.id_num}, Command: {curr.next_command}")
-            curr = curr.next
+        print("Event Log:")
+        for i, event in enumerate(self.event_log, 1):
+            print(f"{i}. {event}")
 
     def is_empty(self) -> bool:
         """Return whether this event list is empty."""
@@ -85,47 +83,19 @@ class EventList:
         The given command is the command which was used to reach this new event, or None if this is the first
         event in the game.
         """
-        if self.last is None:
-            # If the list is empty, set both first and last to the new event
-            self.first = event
-        else:
-            # Otherwise, link the new event to the last event
-            self.last.next = event
-            event.prev = self.last
-            self.last.next_command = command  # Update the previous node's next_command
-
-            # Update last to the new event
-        self.last = event
+        self.event_log.append(event)
 
     def remove_last_event(self) -> None:
         """Remove the last event from this event list.
         If the list is empty, do nothing.
         """
-        if self.is_empty():
-            return  # List is empty, do nothing
-
-        if self.first == self.last:
-            # Only one event in the list, remove it
-            self.first = None
-            self.last = None
-        else:
-            # Update the last event to be the previous event
-            self.last = self.last.prev
-            if self.last:
-                self.last.next = None
-                self.last.next_command = None  # Remove the command leading to the removed event
+        if self.event_log:
+            self.event_log.pop()
 
     def get_id_log(self) -> list[int]:
         """Return a list of all location IDs visited for each event in this list, in sequence."""
 
-        id_log = []
-        curr = self.first
-
-        while curr:
-            id_log.append(curr.id_num)
-            curr = curr.next
-
-        return id_log
+        return [event for event in self.event_log]
 
     # Note: You may add other methods to this class as needed but DO NOT CHANGE THE SPECIFICATION OF ANY OF THE ABOVE
 
