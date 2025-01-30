@@ -37,7 +37,9 @@ class AdventureGame:
         - # TODO add descriptions of public instance attributes as needed
 
     Representation Invariants:
-        - # TODO add any appropriate representation invariants as needed
+        - current_location_id in self._locations
+        - all(isinstance(loc, Location) for loc in self._locations.values())
+        - all(isinstance(item, Item) for item in self._items)
     """
 
     # Private Instance Attributes (do NOT remove these two attributes):
