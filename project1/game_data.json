@@ -44,7 +44,7 @@
       "long_description": "There is a movie CD in this room. I wonder what movie it is. I could play it if i had a CD player...",
       "available_commands": {"go north": 20, "go east": 21},
       "locked": true,
-      "items": ["Movie CD"]
+      "items": ["movie cd"]
     },
     {
       "id": 50,
@@ -79,7 +79,7 @@
       "name": "Robarts St. S",
       "grid_position": [2, 4],
       "brief_description": "A busy street.",
-      "available_commands": {"go north": 51, "go east": 55, "go south": 56}
+      "available_commands": {"go north": 51, "go west": 56, "go south": 55}
     },
     {
       "id": 55,
@@ -107,21 +107,21 @@
       "name": "College St. C",
       "grid_position": [3, 2],
       "brief_description": "A central area of College Street with lots of foot traffic.",
-      "available_commands": {"go north": 57, "go east": 59}
+      "available_commands": {"go north": 57, "go west": 61,"go south": 59}
     },
     {
       "id": 59,
       "name": "College St. S",
       "grid_position": [4, 2],
       "brief_description": "A quieter part of College Street leading to other buildings.",
-      "available_commands": {"go north": 58, "go east": 60}
+      "available_commands": {"go north": 58, "go south": 60}
     },
     {
       "id": 60,
       "name": "Bahen St.",
       "grid_position": [5, 2],
       "brief_description": "A road leading towards Bahen Center.",
-      "available_commands": {"go north": 8}
+      "available_commands": {"go north": 59, "go south": 8}
     },
     {
       "id": 61,
@@ -145,9 +145,9 @@
       "name": "College",
       "grid_position": [3, 0],
       "brief_description": "The College Building. Students are chatting.",
-      "long_description": "You found your Lucky UofT Mug! How on earth did it end up here?.",
+      "long_description": "You found your Lucky UofT Mug! How on earth did it end up here?. You also found some batteries...",
       "available_commands": {"go east": 61},
-      "items": ["Lucky UofT Mug", "Batteries"]
+      "items": ["lucky uoft mug", "batteries"]
     },
     {
       "id": 8,
@@ -156,7 +156,7 @@
       "brief_description": "Bahen Center, where your classes take place.",
       "long_description": "You found your laptop charger! You forgot it when you were leaving your 137 lecture...",
       "available_commands": {"go north": 60},
-      "items": ["Laptop charger"]
+      "items": ["laptop charger"]
     }
   ],
   "items": [
