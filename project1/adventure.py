@@ -136,14 +136,11 @@ class AdventureGame:
         curr_location = self.get_location()
         if item_name == "usb" and self.current_location_id == 6:
             if not self.usb_ejected:
-                print("You cannot take the USB drive until you safely eject it!")
                 return  # Prevents adding the USB to inventory
         if item_name in curr_location.items:
             self.inventory.append(item_name)
             curr_location.items.remove(item_name)
             print(f"You have taken {item_name}.")
-        else:
-            print("There is no such item here.")
 
     def use_item(self, item_name: str) -> None:
         """Use an item from the inventory."""
