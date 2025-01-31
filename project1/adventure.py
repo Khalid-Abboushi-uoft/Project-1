@@ -226,8 +226,9 @@ if __name__ == "__main__":
             print("That was an invalid option; try again.")
             choice = input("\nEnter action: ").lower().strip()
 
-        print("========")
+        print("=========================")
         print("You decided to:", choice)
+        print(location.brief_description)
 
         if choice in menu:
             if choice == "log":
