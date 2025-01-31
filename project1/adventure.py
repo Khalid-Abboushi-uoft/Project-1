@@ -99,7 +99,8 @@ class AdventureGame:
         for loc_data in data['locations']:
             location_obj = Location(loc_data['id'], loc_data['name'], loc_data['brief_description'],
                                     loc_data.get('long_description', None), loc_data['available_commands'],
-                                    loc_data.get('items', []), loc_data.get('locked', False), loc_data.get('visited'))
+                                    loc_data.get('items', []), loc_data.get('locked', False),
+                                    loc_data.get('visited', False), loc_data.get('special_commands'))
             locations[loc_data['id']] = location_obj
 
         items = []
@@ -219,10 +220,12 @@ if __name__ == "__main__":
         print("At this location, you can also:")
         for action in location.available_commands:
             print("-", action)
+        for command in location.special_commands:
+            print("-", command)
 
         # Validate choice
         choice = input("\nEnter action: ").lower().strip()
-        while choice not in location.available_commands and choice not in menu:
+        while choice not in location.available_commands and choice not in menu and choice not in location.special_commands:
             print("That was an invalid option; try again.")
             choice = input("\nEnter action: ").lower().strip()
 
