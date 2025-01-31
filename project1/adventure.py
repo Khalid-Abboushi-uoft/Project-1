@@ -133,7 +133,7 @@ class AdventureGame:
     def take_item(self, item_name: str) -> None:
         """Take an item from the current location."""
         curr_location = self.get_location()
-        if item_name in location.items:
+        if item_name in curr_location.items:
             self.inventory.append(item_name)
             curr_location.items.remove(item_name)
             print(f"You have taken {item_name}.")
