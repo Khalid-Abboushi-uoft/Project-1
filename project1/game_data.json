@@ -46,57 +46,86 @@
     {
       "id": 50,
       "name": "Robarts St. W",
+      "grid_position": [1, 3],
+      "brief_description": "A busy street.",
       "available_commands": {"go north": 22, "go east": 51, "go south": 56, "go west": 51}
     },
     {
       "id": 51,
       "name": "Robarts St. C",
+      "grid_position": [1, 4],
+      "brief_description": "A busy street.",
       "available_commands": {"go north": 52, "go east": 53, "go south": 54, "go west": 50}
     },
     {
       "id": 52,
       "name": "Robarts St. N",
+      "grid_position": [0, 4],
+      "brief_description": "A busy street.",
       "available_commands": {"go south": 51, "go west": 22}
     },
     {
       "id": 53,
       "name": "Robarts St. E",
+      "grid_position": [1, 5],
+      "brief_description": "A busy street.",
       "available_commands": {"go north": 6, "go west": 51}
     },
     {
       "id": 54,
       "name": "Robarts St. S",
+      "grid_position": [2, 4],
+      "brief_description": "A busy street.",
       "available_commands": {"go north": 51, "go east": 55, "go south": 56}
     },
     {
       "id": 55,
       "name": "Closed Street",
+      "grid_position": [3, 4],
+      "brief_description": "A blocked-off street with barriers ahead.",
       "available_commands": {"go north": 54}
     },
     {
       "id": 56,
       "name": "Intersection",
+      "grid_position": [2, 3],
+      "brief_description": "A busy intersection with cars passing by.",
       "available_commands": {"go north": 50, "go east": 54, "go west": 57}
     },
     {
       "id": 57,
       "name": "College St. W",
+      "grid_position": [2, 2],
+      "brief_description": "A vibrant street filled with students and shops.",
       "available_commands": {"go north": 21, "go east": 56, "go south": 58}
     },
     {
       "id": 58,
       "name": "College St. C",
+      "grid_position": [3, 2],
+      "brief_description": "A central area of College Street with lots of foot traffic.",
       "available_commands": {"go north": 57, "go east": 59}
     },
     {
       "id": 59,
       "name": "College St. S",
+      "grid_position": [4, 2],
+      "brief_description": "A quieter part of College Street leading to other buildings.",
       "available_commands": {"go north": 58, "go east": 60}
     },
     {
       "id": 60,
       "name": "Bahen St.",
+      "grid_position": [5, 2],
+      "brief_description": "A road leading towards Bahen Center.",
       "available_commands": {"go north": 8}
+    },
+    {
+      "id": 61,
+      "name": "College St. W",
+      "grid_position": [5, 2],
+      "brief_description": "A stretch of College Street lined with trees and benches.",
+      "available_commands": {"go east": 58, "go west": 7}
     },
     {
       "id": 6,
@@ -118,7 +147,7 @@
       "grid_position": [6, 2],
       "brief_description": "Bahen Center, where your classes take place.",
       "available_commands": {"go north": 60}
-    },
+    }
   ],
   "items": [
     {
