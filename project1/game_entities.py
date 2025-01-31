@@ -71,25 +71,6 @@ class Item:
         self.target_points = target_points
 
 
-class Puzzle:
-    """A puzzle in our text adventure game world.
-
-    Instance Attributes:
-        - name: The name of the puzzle
-        - description: A short description of the puzzle
-        - required_items: A list of items required to solve the puzzle
-        - solution: The correct solution to the puzzle
-        - solved: Whether the puzzle has been solved
-    """
-    def __init__(self, name: str, description: str, required_items: List[str], solution: str, solved: bool = False) -> None:
-        """Initialize a new puzzle."""
-        self.name = name
-        self.description = description
-        self.required_items = required_items
-        self.solution = solution
-        self.solved = solved
-
-
 if __name__ == "__main__":
     pass
     # When you are ready to check your work with python_ta, uncomment the following lines.
