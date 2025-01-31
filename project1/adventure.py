@@ -38,6 +38,8 @@ class AdventureGame:
         - _items: A list of all Item objects present in the game.
         - current_location_id: The ID of the player's current location.
         - ongoing: A boolean indicating whether the game is still in progress.
+        - inventory: A list of items currently in the player's possession.
+        - score: The player's current score.
 
     Representation Invariants:
         - current_location_id in self._locations
@@ -45,15 +47,12 @@ class AdventureGame:
         - all(isinstance(item, Item) for item in self._items)
     """
 
-    # Private Instance Attributes (do NOT remove these two attributes):
-    #   - _locations: a mapping from location id to Location object.
-    #                       This represents all the locations in the game.
-    #   - _items: a list of Item objects, representing all items in the game.
-
     _locations: dict[int, Location]
     _items: list[Item]
-    current_location_id: int  # Suggested attribute, can be removed
-    ongoing: bool  # Suggested attribute, can be removed
+    current_location_id: int
+    ongoing: bool
+    inventory: list[str]
+    score: int
 
     def __init__(self, game_data_file: str, initial_location_id: int) -> None:
         """
@@ -76,8 +75,10 @@ class AdventureGame:
         self._locations, self._items = self._load_game_data(game_data_file)
 
         # Suggested attributes (you can remove and track these differently if you wish to do so):
-        self.current_location_id = initial_location_id  # game begins at this location
-        self.ongoing = True  # whether the game is ongoing
+        self.current_location_id = initial_location_id
+        self.ongoing = True
+        self.inventory = []
+        self.score = 0
 
     @staticmethod
     def _load_game_data(filename: str) -> tuple[dict[int, Location], list[Item]]:
@@ -140,9 +141,12 @@ if __name__ == "__main__":
         event = Event(game.current_location_id, location.brief_description, choice)
         game_log.add_event(event)
 
-        # TODO: Depending on whether or not it's been visited before,
-        #  print either full description (first time visit) or brief description (every subsequent visit) of location
-        # YOUR CODE HERE
+        # Print location description
+        if location.visited:
+            print(location.brief_description)
+        else:
+            print(location.long_description)
+            location.visited = True
 
         # Display possible actions at this location
         print("What to do? Choose from: look, inventory, score, undo, log, quit")
