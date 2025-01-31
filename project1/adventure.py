@@ -248,7 +248,18 @@ if __name__ == "__main__":
                 print(game.get_location().long_description)
 
         else:
-            if choice in location.available_commands:
+            if game.current_location_id == 6 and choice == "take usb":
+                # Check if USB is safely ejected before allowing the player to take it
+                if game.usb_ejected:
+                    game.take_item("USB drive")  # Allow the player to take the USB
+                else:
+                    print("You cannot take the USB drive until you safely eject it.")
+
+            elif game.current_location_id == 6 and choice == "retrieve usb":
+                # Library USB puzzle (eject USB safely)
+                game.attempt_usb_retrieval()
+
+            elif choice in location.available_commands:
                 # Check if the player is trying to enter Hasan's Room (ID 4)
                 next_location_id = location.available_commands[choice]
                 next_location = game.get_location(next_location_id)  # Retrieve the next location object
@@ -258,10 +269,6 @@ if __name__ == "__main__":
                 else:
                     # Move to the new location
                     game.current_location_id = next_location_id
-
-            elif game.current_location_id == 6 and choice == "retrieve usb":
-                # Library USB puzzle
-                game.attempt_usb_retrieval()
 
             else:
                 print("You can't do that here.")
