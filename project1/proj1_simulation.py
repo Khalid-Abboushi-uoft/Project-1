@@ -24,6 +24,77 @@ from __future__ import annotations
 from proj1_event_logger import Event, EventList
 from adventure import AdventureGame
 from game_entities import Location
+from dataclasses import dataclass
+import json
+from typing import Optional
+
+
+# Note: We have completed the Location class for you. Do NOT modify it here, for ex1.
+@dataclass
+class Location:
+    """A location in our text adventure game world.
+
+    Instance Attributes:
+        - id_num: integer id for this location
+        - description: brief description of this location
+        - available_commands: a mapping of available commands at this location to
+                                the location executing that command would lead to
+    """
+    id_num: int
+    description: str
+    available_commands: dict[str, int]
+
+
+class SimpleAdventureGame:
+    """A simple text adventure game class storing all location data.
+
+    Instance Attributes:
+        - current_location_id: the ID of the location the game is currently in
+    """
+
+    # Private Instance Attributes:
+    #   - _locations: a mapping from location id to Location object.
+    #                       This represents all the locations in the game.
+    _locations: dict[int, Location]
+    current_location_id: int
+
+    def __init__(self, game_data_file: str, initial_location_id: int) -> None:
+        """
+        Initialize a new text adventure game, based on the data in the given file.
+
+        Preconditions:
+        - game_data_file is the filename of a valid game data JSON file
+        """
+
+        # Note: We have completed this method for you. Do NOT modify it here, for ex1.
+
+        self._locations = self._load_game_data(game_data_file)
+        self.current_location_id = initial_location_id  # game begins at this location
+
+    @staticmethod
+    def _load_game_data(filename: str) -> dict[int, Location]:
+        """Load locations and items from a JSON file with the given filename and
+        return a dictionary of locations mapping each game location's ID to a Location object."""
+
+        # Note: We have completed this method for you. Do NOT modify it here, for ex1.
+
+        with open(filename, 'r') as f:
+            data = json.load(f)  # This loads all the data from the JSON file
+
+        locations = {}
+        for loc_data in data['locations']:  # Go through each element associated with the 'locations' key in the file
+            location_obj = Location(loc_data['id'], loc_data['long_description'], loc_data['available_commands'])
+            locations[loc_data['id']] = location_obj
+
+        return locations
+
+    def get_location(self, loc_id: Optional[int] = None) -> Location:
+        """Return Location object associated with the provided location ID.
+        If no ID is provided, return the Location object associated with the current location.
+        """
+        if loc_id is None:
+            return self._locations[self.current_location_id]
+        return self._locations[loc_id]
 
 
 class AdventureGameSimulation:
@@ -32,38 +103,37 @@ class AdventureGameSimulation:
     # Private Instance Attributes:
     #   - _game: The AdventureGame instance that this simulation uses.
     #   - _events: A collection of the events to process during the simulation.
-    _game: AdventureGame
+    _game: SimpleAdventureGame
     _events: EventList
 
-    # TODO: Copy/paste your code from ex1_simulation below, and make adjustments as needed
     def __init__(self, game_data_file: str, initial_location_id: int, commands: list[str]) -> None:
         """Initialize a new game simulation based on the given game data, that runs through the given commands.
-
-        Preconditions:
-        - len(commands) > 0
-        - all commands in the given list are valid commands at each associated location in the game
         """
         self._events = EventList()
-        self._game = AdventureGame(game_data_file, initial_location_id)
+        self._game = SimpleAdventureGame(game_data_file, initial_location_id)
 
-        # TODO: Add first event (initial location, no previous command)
-        # Hint: self._game.get_location() gives you back the current location
+        # Add first event (initial location, no previous command)
+        initial_location = self._game.get_location()
+        first_event = Event(initial_location.id_num, initial_location.description, None)
+        self._events.add_event(first_event)
 
-        # TODO: Generate the remaining events based on the commands and initial location
-        # Hint: Call self.generate_events with the appropriate arguments
+        # Generate the remaining events
+        self.generate_events(commands, initial_location)
 
     def generate_events(self, commands: list[str], current_location: Location) -> None:
         """Generate all events in this simulation.
-
-        Preconditions:
-        - len(commands) > 0
-        - all commands in the given list are valid commands at each associated location in the game
         """
+        for command in commands:
+            if command in current_location.available_commands:
+                next_location_id = current_location.available_commands[command]
+                next_location = self._game.get_location(next_location_id)
 
-        # TODO: Complete this method as specified. For each command, generate the event and add
-        #  it to self._events.
-        # Hint: current_location.available_commands[command] will return the next location ID
-        # which executing <command> while in <current_location_id> leads to
+                # Create new event and add to the event list
+                new_event = Event(next_location.id_num, next_location.description, command)
+                self._events.add_event(new_event, command)
+
+                # Update current location
+                current_location = next_location
 
     def get_id_log(self) -> list[int]:
         """
@@ -103,11 +173,11 @@ if __name__ == "__main__":
     # When you are ready to check your work with python_ta, uncomment the following lines.
     # (Delete the "#" and space before each line.)
     # IMPORTANT: keep this code indented inside the "if __name__ == '__main__'" block
-    # import python_ta
-    # python_ta.check_all(config={
-    #     'max-line-length': 120,
-    #     'disable': ['R1705', 'E9998', 'E9999']
-    # })
+    import python_ta
+    python_ta.check_all(config={
+        'max-line-length': 120,
+        'disable': ['R1705', 'E9998', 'E9999']
+    })
 
     # TODO: Modify the code below to provide a walkthrough of commands needed to win and lose the game
     win_walkthrough = []  # Create a list of all the commands needed to walk through your game to win it
