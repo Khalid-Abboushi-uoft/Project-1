@@ -37,18 +37,18 @@ class Location:
     Representation Invariants:
         - id_num > 0
     """
-    def __init__(self, id_num: int, name: str, brief_description: str, long_description: str,
-                 available_commands: Dict[str, int], items: List[str], locked: bool = False,
-                 visited: bool = False) -> None:
-        """Initialize a new location."""
+    def __init__(self, id_num: int, name: str, brief_description: str, long_description: str = None,
+                 available_commands: dict[str, int] = None, items: list[str] = None, locked: bool = False,
+                 visited: bool = False, special_commands: list[str] = None):  # Add special_commands
         self.id_num = id_num
         self.name = name
         self.brief_description = brief_description
         self.long_description = long_description
-        self.available_commands = available_commands
-        self.items = items
+        self.available_commands = available_commands if available_commands else {}
+        self.items = items if items else []
         self.locked = locked
         self.visited = visited
+        self.special_commands = special_commands if special_commands else []
 
 
 class Item:
