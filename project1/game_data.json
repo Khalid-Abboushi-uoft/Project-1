@@ -155,7 +155,7 @@
   ],
   "items": [
     {
-      "name": "USB drive",
+      "name": "USB",
       "description": "A small USB drive containing your project files.",
       "start_position": 6,
       "target_position": 1,
