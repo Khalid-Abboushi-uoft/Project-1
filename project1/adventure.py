@@ -208,7 +208,7 @@ class AdventureGame:
     def check_win_condition(self) -> None:
         """Check if the player has met the winning condition."""
         if self.current_location_id == 1 and self.score == 30:
-            print("\n🎉 Congratulations! You successfully submitted your assignment and won scored 100%! 🎉")
+            print("\n🎉 Congratulations! You successfully submitted your assignment and won scored 100%! 🎉\n")
             self.ongoing = False
 
 
