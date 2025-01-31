@@ -37,8 +37,9 @@ class Location:
     Representation Invariants:
         - id_num > 0
     """
-    def __init__(self, id_num: int, name: str, brief_description: str, available_commands: Dict[str, int],
-                 items: List[str], long_description: str = None, locked: bool = False, visited: bool = False) -> None:
+    def __init__(self, id_num: int, name: str, brief_description: str, long_description: str,
+                 available_commands: Dict[str, int], items: List[str], locked: bool = False,
+                 visited: bool = False) -> None:
         """Initialize a new location."""
         self.id_num = id_num
         self.name = name
