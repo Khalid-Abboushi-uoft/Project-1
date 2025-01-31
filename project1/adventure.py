@@ -248,9 +248,11 @@ if __name__ == "__main__":
                 print(game.get_location().long_description)
 
         else:
-            # Handle non-menu actions
-            result = location.available_commands[choice]
-            game.current_location_id = result
-
-            # TODO: Add in code to deal with actions which do not change the location (e.g. taking or using an item)
-            # TODO: Add in code to deal with special locations (e.g. puzzles) as needed for your game
+            if choice in location.available_commands:
+                # Handle movement actions
+                game.current_location_id = location.available_commands[choice]
+            elif game.current_location_id == 6 and choice == "retrieve usb":
+                # Library USB puzzle
+                game.attempt_usb_retrieval()
+            else:
+                print("You can't do that here.")
