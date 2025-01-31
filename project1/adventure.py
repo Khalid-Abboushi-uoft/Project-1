@@ -260,6 +260,9 @@ if __name__ == "__main__":
         if choice.startswith("take "):
             item_names = choice[len("take "):]
             game.take_item(item_names)
+        if choice.startswith("use "):
+            item_names = choice[len("take "):]
+            game.use_item(item_names)
 
         else:
             if game.current_location_id == 6 and choice == "take usb":
