@@ -148,18 +148,21 @@ class AdventureGame:
     def use_item(self, item_name: str) -> None:
         """Use an item from the inventory."""
         curr_location = self.get_location()
+        hasan_room = self._locations.get(4)
         if item_name in self.inventory:
-            if item_name == "lockpick" and curr_location.id_num == 4 and curr_location.locked:
-                curr_location.locked = False
+            if item_name == "lockpick" and (curr_location.id_num == 20 or curr_location.id_num == 21) and hasan_room.locked:
+                hasan_room.locked = False
                 print("You successfully unlocked Hasan's Room with the lockpick!")
-            elif item_name == "Batteries" and curr_location.id_num == 3:
+            elif item_name == "batteries" and curr_location.id_num == 3:
                 self.cd_player_on = True
                 print("You inserted the batteries into the CD player. It is now on!")
-            elif item_name == "Movie CD" and curr_location.id_num == 3 and self.cd_player_on:
+            elif item_name == "movie cd" and curr_location.id_num == 3 and self.cd_player_on:
                 print("The CD player starts playing: Madagascar!")
-            elif item_name == "Lucky UofT Mug" and curr_location.id_num == 1:
+            elif item_name == "movie cd" and curr_location.id_num == 3 and not self.cd_player_on:
+                print("You must turn on the CD player first, you need some batteries...")
+            elif item_name == "lucky uoft mug" and curr_location.id_num == 1:
                 print("You placed the Lucky UofT Mug on the desk beside your computer.")
-            elif item_name == "Laptop charger" and curr_location.id_num == 1:
+            elif item_name == "laptop charger" and curr_location.id_num == 1:
                 print("You plugged in your laptop charger. Your laptop is now charging.")
             else:
                 print("You cannot use this item here.")
@@ -261,7 +264,7 @@ if __name__ == "__main__":
             item_names = choice[len("take "):]
             game.take_item(item_names)
         if choice.startswith("use "):
-            item_names = choice[len("take "):]
+            item_names = choice[len("use "):]
             game.use_item(item_names)
 
         else:
