@@ -57,6 +57,8 @@ class AdventureGame:
     score: int
     cd_player_on: bool
     usb_ejected: bool
+    moves: int
+    max_moves: int
 
     def __init__(self, game_data_file: str, initial_location_id: int) -> None:
         """
@@ -85,6 +87,8 @@ class AdventureGame:
         self.score = 0
         self.cd_player_on = False
         self.usb_ejected = False
+        self.moves = 0
+        self.max_moves = 41
 
     @staticmethod
     def _load_game_data(filename: str) -> tuple[dict[int, Location], list[Item]]:
@@ -146,21 +150,31 @@ class AdventureGame:
         """Use an item from the inventory."""
         curr_location = self.get_location()
         hasan_room = self._locations.get(4)
+        item_obj = next((item for item in self._items if item.name.lower() == item_name.lower()), None)
         if item_name in self.inventory:
             if item_name == "lockpick" and (curr_location.id_num == 20 or curr_location.id_num == 21) and hasan_room.locked:
                 hasan_room.locked = False
+                self.score += item_obj.target_points
                 print("You successfully unlocked Hasan's Room with the lockpick!")
             elif item_name == "batteries" and curr_location.id_num == 3:
                 self.cd_player_on = True
+                self.score += item_obj.target_points
                 print("You inserted the batteries into the CD player. It is now on!")
             elif item_name == "movie cd" and curr_location.id_num == 3 and self.cd_player_on:
                 print("The CD player starts playing: Madagascar!")
+                self.score += item_obj.target_points
             elif item_name == "movie cd" and curr_location.id_num == 3 and not self.cd_player_on:
                 print("You must turn on the CD player first, you need some batteries...")
+                self.score += item_obj.target_points
             elif item_name == "lucky uoft mug" and curr_location.id_num == 1:
                 print("You placed the Lucky UofT Mug on the desk beside your computer.")
+                self.score += item_obj.target_points
             elif item_name == "laptop charger" and curr_location.id_num == 1:
                 print("You plugged in your laptop charger. Your laptop is now charging.")
+                self.score += item_obj.target_points
+            elif item_name == "usb" and curr_location.id_num == 1:
+                print("You plugged the usb into your computer.")
+                self.score += item_obj.target_points
             else:
                 print("You cannot use this item here.")
         else:
@@ -187,6 +201,12 @@ class AdventureGame:
             print("You have safely ejected the USB. You can now take it.")
         else:
             print("Incorrect password. Try again later.")
+
+    def check_win_condition(self) -> None:
+        """Check if the player has met the winning condition."""
+        if self.current_location_id == 1 and self.score == 30:
+            print("\n🎉 Congratulations! You successfully submitted your assignment and won scored 100%! 🎉")
+            self.ongoing = False
 
 
 if __name__ == "__main__":
@@ -215,6 +235,14 @@ if __name__ == "__main__":
         # Add new Event to game log
         event = Event(game.current_location_id, location.brief_description, choice)
         game_log.add_event(event)
+
+        # Increment player moves by 1 each command
+        game.moves += 1
+        print(f"Moves remaining: {game.max_moves - game.moves}")
+
+        if game.moves >= game.max_moves:
+            print("\nYou ran out of time! You failed to submit your assignment. Game Over.")
+            game.ongoing = False
 
         # Print location description
         if location.visited or location.long_description is None:
