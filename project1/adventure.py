@@ -136,9 +136,9 @@ if __name__ == "__main__":
 
         location = game.get_location()
 
-        # TODO: Add new Event to game log to represent current game location
-        #  Note that the <choice> variable should be the command which led to this event
-        # YOUR CODE HERE
+        # Add new Event to game log
+        event = Event(game.current_location_id, location.brief_description, choice)
+        game_log.add_event(event)
 
         # TODO: Depending on whether or not it's been visited before,
         #  print either full description (first time visit) or brief description (every subsequent visit) of location
