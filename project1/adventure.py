@@ -113,6 +113,17 @@ class AdventureGame:
             loc_id = self.current_location_id
         return self._locations[loc_id]
 
+    def display_inventory(self) -> None:
+        """Display the player's inventory."""
+        if self.inventory:
+            print("Inventory:", ", ".join(self.inventory))
+        else:
+            print("Your inventory is empty.")
+
+    def display_score(self) -> None:
+        """Display the player's current score."""
+        print(f"Current Score: {self.score}")
+
 
 if __name__ == "__main__":
 
@@ -164,11 +175,22 @@ if __name__ == "__main__":
         print("You decided to:", choice)
 
         if choice in menu:
-            # TODO: Handle each menu command as appropriate
-            # Note: For the "undo" command, remember to manipulate the game_log event list to keep it up-to-date
             if choice == "log":
                 game_log.display_events()
-            # ENTER YOUR CODE BELOW to handle other menu commands (remember to use helper functions as appropriate)
+            elif choice == "quit":
+                game.ongoing = False
+            elif choice == "undo":
+                game_log.remove_last_event()
+                if game_log.last:
+                    game.current_location_id = game_log.last.id_num
+                else:
+                    game.current_location_id = 1  # Reset to starting location if no previous events
+            elif choice == "inventory":
+                game.display_inventory()
+            elif choice == "score":
+                game.display_score()
+            elif choice == "look":
+                print(game.get_location().long_description)
 
         else:
             # Handle non-menu actions
