@@ -169,12 +169,15 @@ class AdventureGame:
             elif item_name == "lucky uoft mug" and curr_location.id_num == 1:
                 print("You placed the Lucky UofT Mug on the desk beside your computer.")
                 self.score += item_obj.target_points
+                self.check_win_condition()
             elif item_name == "laptop charger" and curr_location.id_num == 1:
                 print("You plugged in your laptop charger. Your laptop is now charging.")
                 self.score += item_obj.target_points
+                self.check_win_condition()
             elif item_name == "usb" and curr_location.id_num == 1:
                 print("You plugged the usb into your computer.")
                 self.score += item_obj.target_points
+                self.check_win_condition()
             else:
                 print("You cannot use this item here.")
         else:
@@ -243,6 +246,7 @@ if __name__ == "__main__":
         if game.moves >= game.max_moves:
             print("\nYou ran out of time! You failed to submit your assignment. Game Over.")
             game.ongoing = False
+            break
 
         # Print location description
         if location.visited or location.long_description is None:
