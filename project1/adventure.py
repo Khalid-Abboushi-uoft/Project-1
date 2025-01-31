@@ -171,21 +171,25 @@ class AdventureGame:
 
     def attempt_usb_retrieval(self) -> None:
         """Handle the process of safely retrieving the USB in the Library."""
-        if self.current_location_id == 6 and not self.usb_ejected:
-            print(
-                "The computer warns: 'If you unplug it normally, it might corrupt. You may want to manually eject "
-                "it first, but you need to sign in.'")
-            print("Hint: No caps, no spaces, no special characters. Favorite movie + birthday")
-            password = input("Enter password: ")
-            if password == "madagascar05252006":
-                self.usb_ejected = True
-                print("You have safely ejected the USB. You can now take it.")
-            else:
-                print("Incorrect password. Try again later.")
-        elif self.current_location_id == 6 and self.usb_ejected:
-            print("The USB has been safely ejected. You can take it now.")
-        else:
+        if self.current_location_id != 6:
             print("There's nothing to do here.")
+            return
+
+        if self.usb_ejected:
+            print("The USB has been safely ejected. You can take it now.")
+            return
+
+        # Prompt for password to eject USB
+        print(
+            "The computer warns: 'If you unplug it normally, it might corrupt. You may want to manually eject "
+            "it first, but you need to sign in.'")
+        print("Hint: No caps, no spaces, no special characters. Favorite movie + birthday")
+
+        if input("Enter password: ").strip().lower() == "madagascar05252006":
+            self.usb_ejected = True
+            print("You have safely ejected the USB. You can now take it.")
+        else:
+            print("Incorrect password. Try again later.")
 
 
 if __name__ == "__main__":
