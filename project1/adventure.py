@@ -124,6 +124,24 @@ class AdventureGame:
         """Display the player's current score."""
         print(f"Current Score: {self.score}")
 
+    def take_item(self, item_name: str) -> None:
+        """Take an item from the current location."""
+        location = self.get_location()
+        if item_name in location.items:
+            self.inventory.append(item_name)
+            location.items.remove(item_name)
+            print(f"You have taken {item_name}.")
+        else:
+            print("There is no such item here.")
+
+    def use_item(self, item_name: str) -> None:
+        """Use an item from the inventory."""
+        if item_name in self.inventory:
+            print(f"You used {item_name}.")
+            # Add logic for specific item usage (e.g., unlocking a door, solving a puzzle)
+        else:
+            print("You do not have that item.")
+
 
 if __name__ == "__main__":
 
@@ -160,7 +178,7 @@ if __name__ == "__main__":
             location.visited = True
 
         # Display possible actions at this location
-        print("What to do? Choose from: look, inventory, score, undo, log, quit")
+        print("What to do? Choose from: look, inventory, score, undo, log, quit, take, use")
         print("At this location, you can also:")
         for action in location.available_commands:
             print("-", action)
