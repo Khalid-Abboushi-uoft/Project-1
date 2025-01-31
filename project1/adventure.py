@@ -40,6 +40,8 @@ class AdventureGame:
         - ongoing: A boolean indicating whether the game is still in progress.
         - inventory: A list of items currently in the player's possession.
         - score: The player's current score.
+        - cd_player_on: Whether the CD player in Khalid's Room is on.
+        - usb_ejected: Whether the USB has been safely ejected from the computer.
 
     Representation Invariants:
         - current_location_id in self._locations
@@ -53,6 +55,8 @@ class AdventureGame:
     ongoing: bool
     inventory: list[str]
     score: int
+    cd_player_on: bool
+    usb_ejected: bool
 
     def __init__(self, game_data_file: str, initial_location_id: int) -> None:
         """
@@ -79,6 +83,8 @@ class AdventureGame:
         self.ongoing = True
         self.inventory = []
         self.score = 0
+        self.cd_player_on = False
+        self.usb_ejected = False
 
     @staticmethod
     def _load_game_data(filename: str) -> tuple[dict[int, Location], list[Item]]:
@@ -154,6 +160,24 @@ class AdventureGame:
                 print("You cannot use this item here.")
         else:
             print("You do not have that item.")
+
+    def attempt_usb_retrieval(self) -> None:
+        """Handle the process of safely retrieving the USB in the Library."""
+        if self.current_location_id == 6 and not self.usb_ejected:
+            print(
+                "The computer warns: 'If you unplug it normally, it might corrupt. You may want to manually eject "
+                "it first, but you need to sign in.'")
+            print("Hint: No caps, no spaces, no special characters. Favorite movie + birthday")
+            password = input("Enter password: ").strip().lower()
+            if password == "madagascar052506":
+                self.usb_ejected = True
+                print("You have safely ejected the USB. You can now take it.")
+            else:
+                print("Incorrect password. Try again later.")
+        elif self.current_location_id == 6 and self.usb_ejected:
+            print("The USB is already safely ejected. You can take it now.")
+        else:
+            print("There's nothing to do here.")
 
 
 if __name__ == "__main__":
