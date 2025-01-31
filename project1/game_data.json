@@ -5,6 +5,7 @@
       "name": "Your Room",
       "grid_position": [0, 0],
       "brief_description": "Your private dorm room. Your laptop is here that you need to submit the assignment.",
+      "long_description": "You see a birthday photo with a number on the back... 05252006",
       "available_commands": {"go east": 20}
     },
     {
@@ -42,7 +43,8 @@
       "brief_description": "Hasan's room. The door is locked.",
       "long_description": "There is a movie CD in this room. I wonder what movie it is. I could play it if i had a CD player...",
       "available_commands": {"go north": 20, "go east": 21},
-      "locked": true
+      "locked": true,
+      "items": ["Movie CD"]
     },
     {
       "id": 50,
@@ -134,15 +136,17 @@
       "grid_position": [1, 6],
       "brief_description": "A quiet library filled with books.",
       "long_description": "You found your usb you were working on earlier in the library.",
-      "available_commands": {"go west": 53}
+      "available_commands": {"go west": 53},
+      "items": ["usb"]
     },
     {
       "id": 7,
       "name": "College",
       "grid_position": [3, 0],
       "brief_description": "The College Building. Students are chatting.",
-      "long_description": "You found your lucky UofT Mug! How on earth did it end up here?.",
-      "available_commands": {"go east": 61}
+      "long_description": "You found your Lucky UofT Mug! How on earth did it end up here?.",
+      "available_commands": {"go east": 61},
+      "items": ["Lucky UofT Mug", "Batteries"]
     },
     {
       "id": 8,
@@ -150,7 +154,8 @@
       "grid_position": [6, 2],
       "brief_description": "Bahen Center, where your classes take place.",
       "long_description": "You found your laptop charger! You forgot it when you were leaving your 137 lecture...",
-      "available_commands": {"go north": 60}
+      "available_commands": {"go north": 60},
+      "items": ["Laptop charger"]
     }
   ],
   "items": [
@@ -192,13 +197,6 @@
     {
       "name": "Computer",
       "description": "Your personal computer. You need to submit your assignment from here.",
-      "start_position": 1,
-      "target_position": null,
-      "target_points": 0
-    },
-    {
-      "name": "Photo with birthday on back",
-      "description": "A photo with 'May 25, 2006' written on the back.",
       "start_position": 1,
       "target_position": null,
       "target_points": 0
