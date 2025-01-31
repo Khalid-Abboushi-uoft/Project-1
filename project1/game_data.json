@@ -30,16 +30,17 @@
     },
     {
       "id": 3,
-      "name": "Khalid's Room",
+      "name": "Khalids Room",
       "grid_position": [0, 2],
       "brief_description": "Khalid’s room. There's a CD player here.",
       "available_commands": {"go west": 20, "go east": 22, "go south": 21}
     },
     {
       "id": 4,
-      "name": "Hasan's Room",
+      "name": "Hasans Room",
       "grid_position": [1, 1],
       "brief_description": "Hasan's room. The door is locked.",
+      "long_description": "There is a movie CD in this room. I wonder what movie it is. I could play it if i had a CD player...",
       "available_commands": {"go north": 20, "go east": 21},
       "locked": true
     },
@@ -69,7 +70,7 @@
       "name": "Robarts St. E",
       "grid_position": [1, 5],
       "brief_description": "A busy street.",
-      "available_commands": {"go north": 6, "go west": 51}
+      "available_commands": {"go east": 6, "go west": 51}
     },
     {
       "id": 54,
@@ -132,6 +133,7 @@
       "name": "Library",
       "grid_position": [1, 6],
       "brief_description": "A quiet library filled with books.",
+      "long_description": "You found your usb you were working on earlier in the library.",
       "available_commands": {"go west": 53}
     },
     {
@@ -139,6 +141,7 @@
       "name": "College",
       "grid_position": [3, 0],
       "brief_description": "The College Building. Students are chatting.",
+      "long_description": "You found your lucky UofT Mug! How on earth did it end up here?.",
       "available_commands": {"go east": 61}
     },
     {
@@ -146,6 +149,7 @@
       "name": "Bahen",
       "grid_position": [6, 2],
       "brief_description": "Bahen Center, where your classes take place.",
+      "long_description": "You found your laptop charger! You forgot it when you were leaving your 137 lecture...",
       "available_commands": {"go north": 60}
     }
   ],

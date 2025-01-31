@@ -98,7 +98,7 @@ class AdventureGame:
         locations = {}
         for loc_data in data['locations']:
             location_obj = Location(loc_data['id'], loc_data['name'], loc_data['brief_description'],
-                                    loc_data.get('long_description', ''), loc_data['available_commands'],
+                                    loc_data.get('long_description', None), loc_data['available_commands'],
                                     loc_data.get('items', []), loc_data.get('locked', False), loc_data.get('visited'))
             locations[loc_data['id']] = location_obj
 
@@ -249,10 +249,19 @@ if __name__ == "__main__":
 
         else:
             if choice in location.available_commands:
-                # Handle movement actions
-                game.current_location_id = location.available_commands[choice]
+                # Check if the player is trying to enter Hasan's Room (ID 4)
+                next_location_id = location.available_commands[choice]
+                next_location = game.get_location(next_location_id)  # Retrieve the next location object
+
+                if next_location_id == 4 and getattr(next_location, 'locked', False):
+                    print("The door is locked. You need something to unlock it.")
+                else:
+                    # Move to the new location
+                    game.current_location_id = next_location_id
+
             elif game.current_location_id == 6 and choice == "retrieve usb":
                 # Library USB puzzle
                 game.attempt_usb_retrieval()
+
             else:
                 print("You can't do that here.")
