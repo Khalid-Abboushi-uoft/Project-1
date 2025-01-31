@@ -4,8 +4,8 @@
       "id": 1,
       "name": "Your Room",
       "grid_position": [0, 0],
-      "brief_description": "Your private dorm room. Your laptop is here that you need to submit the assignment.",
-      "long_description": "You see a birthday photo with a number on the back... 05252006",
+      "brief_description": "You see a birthday photo with a number on the back... 05252006",
+      "long_description": "Your private dorm room. Your laptop is here that you need to submit the assignment.",
       "available_commands": {"go east": 20}
     },
     {
@@ -40,7 +40,7 @@
       "id": 4,
       "name": "Hasans Room",
       "grid_position": [1, 1],
-      "brief_description": "Hasan's room. The door is locked.",
+      "brief_description": "Hasan's room.",
       "long_description": "There is a movie CD in this room. I wonder what movie it is. I could play it if i had a CD player...",
       "available_commands": {"go north": 20, "go east": 21},
       "locked": true,
@@ -134,8 +134,8 @@
       "id": 6,
       "name": "Library",
       "grid_position": [1, 6],
-      "brief_description": "A quiet library filled with books.",
-      "long_description": "You found your usb you were working on earlier in the library.",
+      "brief_description": "You found your usb you were working on earlier in the library.",
+      "long_description": "A quiet library filled with books.",
       "available_commands": {"go west": 53},
       "items": ["usb", "lockpick"],
       "special_commands": ["retrieve usb", "take usb"]
@@ -144,8 +144,8 @@
       "id": 7,
       "name": "College",
       "grid_position": [3, 0],
-      "brief_description": "The College Building. Students are chatting.",
-      "long_description": "You found your Lucky UofT Mug! How on earth did it end up here?. You also found some batteries...",
+      "brief_description": "You found your Lucky UofT Mug! How on earth did it end up here?. You also found some batteries...",
+      "long_description": "The College Building. Students are chatting.",
       "available_commands": {"go east": 61},
       "items": ["lucky uoft mug", "batteries"]
     },
@@ -153,8 +153,8 @@
       "id": 8,
       "name": "Bahen",
       "grid_position": [6, 2],
-      "brief_description": "Bahen Center, where your classes take place.",
-      "long_description": "You found your laptop charger! You forgot it when you were leaving your 137 lecture...",
+      "brief_description": "You found your laptop charger! You forgot it when you were leaving your 137 lecture...",
+      "long_description": "Bahen Center, where your classes take place.",
       "available_commands": {"go north": 60},
       "items": ["laptop charger"]
     }
