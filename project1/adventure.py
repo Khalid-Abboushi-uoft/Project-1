@@ -254,7 +254,7 @@ if __name__ == "__main__":
             if game.current_location_id == 6 and choice == "take usb":
                 # Check if USB is safely ejected before allowing the player to take it
                 if game.usb_ejected:
-                    game.take_item("USB drive")  # Allow the player to take the USB
+                    game.take_item("usb")  # Allow the player to take the USB
                 else:
                     print("You cannot take the USB drive until you safely eject it.")
 
