@@ -171,7 +171,7 @@
       "name": "lockpick",
       "description": "A simple lockpick that might help open locked doors.",
       "start_position": 6,
-      "target_position": 4,
+      "target_position": null,
       "target_points": 5
     },
     {
