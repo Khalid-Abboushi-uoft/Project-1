@@ -208,7 +208,7 @@ if __name__ == "__main__":
         game_log.add_event(event)
 
         # Print location description
-        if location.visited:
+        if location.visited or location.long_description is None:
             print(location.brief_description)
         else:
             print(location.long_description)
