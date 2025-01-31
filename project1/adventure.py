@@ -136,9 +136,22 @@ class AdventureGame:
 
     def use_item(self, item_name: str) -> None:
         """Use an item from the inventory."""
+        curr_location = self.get_location()
         if item_name in self.inventory:
-            print(f"You used {item_name}.")
-            # Add logic for specific item usage (e.g., unlocking a door, solving a puzzle)
+            if item_name == "lockpick" and curr_location.id_num == 4 and curr_location.locked:
+                curr_location.locked = False
+                print("You successfully unlocked Hasan's Room with the lockpick!")
+            elif item_name == "Batteries" and curr_location.id_num == 3:
+                self.cd_player_on = True
+                print("You inserted the batteries into the CD player. It is now on!")
+            elif item_name == "Movie CD" and curr_location.id_num == 3 and self.cd_player_on:
+                print("The CD player starts playing: Madagascar!")
+            elif item_name == "Lucky UofT Mug" and curr_location.id_num == 1:
+                print("You placed the Lucky UofT Mug on the desk beside your computer.")
+            elif item_name == "Laptop charger" and curr_location.id_num == 1:
+                print("You plugged in your laptop charger. Your laptop is now charging.")
+            else:
+                print("You cannot use this item here.")
         else:
             print("You do not have that item.")
 
