@@ -18,7 +18,7 @@
     {
       "id": 21,
       "name": "Dorms Central",
-      "grid_position": [1, 1],
+      "grid_position": [1, 2],
       "brief_description": "A common dormitory area with rooms all around.",
       "available_commands": {"go north": 3, "go south": 57, "go east": 50, "go west": 4}
     },
@@ -51,7 +51,7 @@
       "name": "Robarts St. W",
       "grid_position": [1, 3],
       "brief_description": "A busy street.",
-      "available_commands": {"go north": 22, "go east": 51, "go south": 56, "go west": 22}
+      "available_commands": {"go north": 22, "go east": 51, "go south": 56, "go west": 21}
     },
     {
       "id": 51,
