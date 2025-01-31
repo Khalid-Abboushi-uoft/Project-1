@@ -134,6 +134,10 @@ class AdventureGame:
     def take_item(self, item_name: str) -> None:
         """Take an item from the current location."""
         curr_location = self.get_location()
+        if item_name == "usb" and self.current_location_id == 6:
+            if not self.usb_ejected:
+                print("You cannot take the USB drive until you safely eject it!")
+                return  # Prevents adding the USB to inventory
         if item_name in curr_location.items:
             self.inventory.append(item_name)
             curr_location.items.remove(item_name)
@@ -225,7 +229,11 @@ if __name__ == "__main__":
 
         # Validate choice
         choice = input("\nEnter action: ").lower().strip()
-        while choice not in location.available_commands and choice not in menu and choice not in location.special_commands:
+        while (choice not in location.available_commands
+               and choice not in menu
+               and choice not in location.special_commands
+               and not choice.startswith("take ")
+               and not choice.startswith("use ")):
             print("That was an invalid option; try again.")
             choice = input("\nEnter action: ").lower().strip()
 
@@ -249,6 +257,9 @@ if __name__ == "__main__":
                 game.display_score()
             elif choice == "look":
                 print(game.get_location().long_description)
+        if choice.startswith("take "):
+            item_names = choice[len("take "):]
+            game.take_item(item_names)
 
         else:
             if game.current_location_id == 6 and choice == "take usb":
@@ -272,6 +283,3 @@ if __name__ == "__main__":
                 else:
                     # Move to the new location
                     game.current_location_id = next_location_id
-
-            else:
-                print("You can't do that here.")
