@@ -137,8 +137,8 @@
       "brief_description": "A quiet library filled with books.",
       "long_description": "You found your usb you were working on earlier in the library.",
       "available_commands": {"go west": 53},
-      "items": ["usb", 'lockpick'],
-      "special_commands": ["retrieve usb"]
+      "items": ["usb", "lockpick"],
+      "special_commands": ["retrieve usb", "take usb"]
     },
     {
       "id": 7,
