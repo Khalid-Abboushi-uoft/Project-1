@@ -51,7 +51,7 @@
       "name": "Robarts St. W",
       "grid_position": [1, 3],
       "brief_description": "A busy street.",
-      "available_commands": {"go north": 22, "go east": 51, "go south": 56, "go west": 51}
+      "available_commands": {"go north": 22, "go east": 51, "go south": 56, "go west": 22}
     },
     {
       "id": 51,
