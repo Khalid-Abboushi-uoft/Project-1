@@ -99,7 +99,7 @@ class AdventureGame:
         for loc_data in data['locations']:
             location_obj = Location(loc_data['id'], loc_data['name'], loc_data['brief_description'],
                                     loc_data.get('long_description', ''), loc_data['available_commands'],
-                                    loc_data.get('items', []), loc_data.get('locked', False))
+                                    loc_data.get('items', []), loc_data.get('locked', False), loc_data.get('visited'))
             locations[loc_data['id']] = location_obj
 
         items = []
