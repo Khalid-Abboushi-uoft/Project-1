@@ -176,7 +176,7 @@ class AdventureGame:
             else:
                 print("Incorrect password. Try again later.")
         elif self.current_location_id == 6 and self.usb_ejected:
-            print("The USB is already safely ejected. You can take it now.")
+            print("The USB has been safely ejected. You can take it now.")
         else:
             print("There's nothing to do here.")
 
