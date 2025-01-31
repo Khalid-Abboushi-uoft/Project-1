@@ -185,7 +185,7 @@ class AdventureGame:
             "it first, but you need to sign in.'")
         print("Hint: No caps, no spaces, no special characters. Favorite movie + birthday")
 
-        if input("Enter password: ").strip().lower() == "madagascar05252006":
+        if input("Enter password: ") == "madagascar05252006":
             self.usb_ejected = True
             print("You have safely ejected the USB. You can now take it.")
         else:
