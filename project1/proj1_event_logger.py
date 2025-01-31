@@ -26,9 +26,6 @@ from dataclasses import dataclass
 from typing import Optional
 
 
-# TODO: Copy/paste your x1_event_logeger code below, and modify it if needed to fit your game
-
-
 @dataclass
 class Event:
     """
