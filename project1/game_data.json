@@ -3,104 +3,122 @@
     {
       "id": 1,
       "name": "Your Room",
-      "grid_position": [
-        0,
-        0
-      ],
-      "brief_description": "Your private dorm room. Your laptop is here.",
-      "available_commands": {
-        "go east": 2
-      }
+      "grid_position": [0, 0],
+      "brief_description": "Your private dorm room. Your laptop is here that you need to submit the assignment.",
+      "available_commands": {"go east": 20}
     },
     {
-      "id": 2,
-      "name": "Dorms",
-      "grid_position": [
-        0,
-        1
-      ],
-      "brief_description": "The dormitory hallway, leading to other rooms.",
-      "available_commands": {
-        "go west": 1,
-        "go east": 4
-      }
+      "id": 20,
+      "name": "Dorms West",
+      "grid_position": [0, 1],
+      "brief_description": "A hallway leading to dorm rooms.",
+      "available_commands": {"go west": 1, "go east": 3, "go south": 4}
+    },
+    {
+      "id": 21,
+      "name": "Dorms Central",
+      "grid_position": [1, 1],
+      "brief_description": "A common dormitory area with rooms all around.",
+      "available_commands": {"go north": 3, "go south": 57, "go east": 50, "go west": 4}
+    },
+    {
+      "id": 22,
+      "name": "Dorms East",
+      "grid_position": [0, 3],
+      "brief_description": "The other side of the dorm hallway.",
+      "available_commands": {"go west": 3, "go east": 52, "go south": 50}
     },
     {
       "id": 3,
       "name": "Khalid's Room",
-      "grid_position": [
-        1,
-        1
-      ],
+      "grid_position": [0, 2],
       "brief_description": "Khalid’s room. There's a CD player here.",
-      "available_commands": {
-        "go south": -1,
-        "go east": 2
-      }
+      "available_commands": {"go west": 20, "go east": 22, "go south": 21}
     },
     {
       "id": 4,
       "name": "Hasan's Room",
-      "grid_position": [
-        0,
-        2
-      ],
+      "grid_position": [1, 1],
       "brief_description": "Hasan's room. The door is locked.",
-      "available_commands": {
-        "go west": 2,
-        "go east": 5
-      },
+      "available_commands": {"go north": 20, "go east": 21},
       "locked": true
     },
     {
-      "id": 5,
-      "name": "Streets",
-      "grid_position": [
-        0,
-        4
-      ],
-      "brief_description": "A busy street connecting different locations.",
-      "available_commands": {
-        "go west": 4,
-        "go east": 6
-      }
+      "id": 50,
+      "name": "Robarts St. W",
+      "available_commands": {"go north": 22, "go east": 51, "go south": 56, "go west": 51}
+    },
+    {
+      "id": 51,
+      "name": "Robarts St. C",
+      "available_commands": {"go north": 52, "go east": 53, "go south": 54, "go west": 50}
+    },
+    {
+      "id": 52,
+      "name": "Robarts St. N",
+      "available_commands": {"go south": 51, "go west": 22}
+    },
+    {
+      "id": 53,
+      "name": "Robarts St. E",
+      "available_commands": {"go north": 6, "go west": 51}
+    },
+    {
+      "id": 54,
+      "name": "Robarts St. S",
+      "available_commands": {"go north": 51, "go east": 55, "go south": 56}
+    },
+    {
+      "id": 55,
+      "name": "Closed Street",
+      "available_commands": {"go north": 54}
+    },
+    {
+      "id": 56,
+      "name": "Intersection",
+      "available_commands": {"go north": 50, "go east": 54, "go west": 57}
+    },
+    {
+      "id": 57,
+      "name": "College St. W",
+      "available_commands": {"go north": 21, "go east": 56, "go south": 58}
+    },
+    {
+      "id": 58,
+      "name": "College St. C",
+      "available_commands": {"go north": 57, "go east": 59}
+    },
+    {
+      "id": 59,
+      "name": "College St. S",
+      "available_commands": {"go north": 58, "go east": 60}
+    },
+    {
+      "id": 60,
+      "name": "Bahen St.",
+      "available_commands": {"go north": 8}
     },
     {
       "id": 6,
       "name": "Library",
-      "grid_position": [
-        1,
-        6
-      ],
+      "grid_position": [1, 6],
       "brief_description": "A quiet library filled with books.",
-      "available_commands": {
-        "go west": 5
-      }
+      "available_commands": {"go west": 53}
     },
     {
       "id": 7,
       "name": "College",
-      "grid_position": [
-        3,
-        0
-      ],
+      "grid_position": [3, 0],
       "brief_description": "The College Building. Students are chatting.",
-      "available_commands": {
-        "go east": 5
-      }
+      "available_commands": {"go east": 61}
     },
     {
       "id": 8,
       "name": "Bahen",
-      "grid_position": [
-        6,
-        2
-      ],
+      "grid_position": [6, 2],
       "brief_description": "Bahen Center, where your classes take place.",
-      "available_commands": {
-        "go north": 5
-      }
-    }
+      "available_commands": {"go north": 60}
+    },
   ],
   "items": [
     {
