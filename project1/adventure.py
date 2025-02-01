@@ -152,8 +152,9 @@ class AdventureGame:
         hasan_room = self._locations.get(4)
         item_obj = next((item for item in self._items if item.name.lower() == item_name.lower()), None)
         if item_name in self.inventory:
-            if (item_name == "lockpick" and (curr_location.id_num == 20 or curr_location.id_num == 21) and
-                    hasan_room.locked):
+            if (item_name == "lockpick"
+                    and curr_location.id_num in {20, 21}
+                    and hasan_room.locked):
                 hasan_room.locked = False
                 self.score += item_obj.target_points
                 print("You successfully unlocked Hasan's Room with the lockpick!")
@@ -239,7 +240,7 @@ if __name__ == "__main__":
         # Add new Event to game log
         event = Event(game.current_location_id, location.brief_description, choice)
         game_log.add_event(event)
-        game_log.display_events()
+
         # Increment player moves by 1 each command
         game.moves += 1
         print(f"Moves remaining: {game.max_moves - game.moves}")
