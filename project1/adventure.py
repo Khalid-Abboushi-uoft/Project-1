@@ -135,55 +135,92 @@ class AdventureGame:
         """Display the player's current score."""
         print(f"Current Score: {self.score}")
 
+    # Constants to avoid magic numbers:
+    hasan_room_id = 4
+    cd_player_room_id = 3
+    desk_room_id = 1
+    usb_location_id = 6
+    your_room_id = 1
+    winning_score = 30
+
     def take_item(self, item_name: str) -> None:
-        """Take an item from the current location."""
+        """Try to take an item from the current location.
+        If the item is present in the location, add it to the inventory and remove it from the location.
+        If the item is restricted (like the USB that must be ejected first), prevent taking it.
+        """
         curr_location = self.get_location()
-        if item_name == "usb" and self.current_location_id == 6:
-            if not self.usb_ejected:
-                return  # Prevents adding the USB to inventory
+
+        if not self._can_take_item(item_name):
+            return  # Prevents taking restricted items
+
         if item_name in curr_location.items:
             self.inventory.append(item_name)
             curr_location.items.remove(item_name)
             print(f"You have taken {item_name}.")
 
+    def _can_take_item(self, item_name: str) -> bool:
+        """Check if the item can be taken based on game rules."""
+        return not (item_name == "usb" and self.current_location_id == self.usb_location_id and not self.usb_ejected)
+
     def use_item(self, item_name: str) -> None:
         """Use an item from the inventory."""
         curr_location = self.get_location()
-        hasan_room = self._locations.get(4)
-        item_obj = next((item for item in self._items if item.name.lower() == item_name.lower()), None)
-        if item_name in self.inventory:
-            if (item_name == "lockpick"
-                    and curr_location.id_num in {20, 21}
-                    and hasan_room.locked):
-                hasan_room.locked = False
-                self.score += item_obj.target_points
-                print("You successfully unlocked Hasan's Room with the lockpick!")
-            elif item_name == "batteries" and curr_location.id_num == 3:
-                self.cd_player_on = True
-                self.score += item_obj.target_points
-                print("You inserted the batteries into the CD player. It is now on!")
-            elif item_name == "movie cd" and curr_location.id_num == 3 and self.cd_player_on:
-                print("The CD player starts playing: Madagascar!")
-                self.score += item_obj.target_points
-            elif item_name == "movie cd" and curr_location.id_num == 3 and not self.cd_player_on:
-                print("You must turn on the CD player first, you need some batteries...")
-                self.score += item_obj.target_points
-            elif item_name == "lucky uoft mug" and curr_location.id_num == 1:
-                print("You placed the Lucky UofT Mug on the desk beside your computer.")
-                self.score += item_obj.target_points
-                self.check_win_condition()
-            elif item_name == "laptop charger" and curr_location.id_num == 1:
-                print("You plugged in your laptop charger. Your laptop is now charging.")
-                self.score += item_obj.target_points
-                self.check_win_condition()
-            elif item_name == "usb" and curr_location.id_num == 1:
-                print("You plugged the usb into your computer.")
-                self.score += item_obj.target_points
-                self.check_win_condition()
-            else:
-                print("You cannot use this item here.")
-        else:
+        hasan_room = self._locations.get(self.hasan_room_id)
+
+        if item_name.lower() not in (i.lower() for i in self.inventory):
             print("You do not have that item.")
+            return
+
+        item_obj = next((item for item in self._items if item.name.lower() == item_name.lower()), None)
+        if not item_obj:
+            print("Error: Item not found in game data.")
+            return
+
+        if self._can_use_item(item_name, curr_location, hasan_room):
+            self.score += item_obj.target_points
+        else:
+            print("You cannot use this item here.")
+
+    def _can_use_item(self, item_name: str, curr_location: Location, hasan_room: Location) -> bool:
+        """Check if an item can be used in the current location and perform the action if possible."""
+        if item_name == "lockpick" and curr_location.id_num in {20, 21} and hasan_room.locked:
+            hasan_room.locked = False
+            print("You successfully unlocked Hasan's Room with the lockpick!")
+            return True
+        if item_name == "batteries" and curr_location.id_num == self.cd_player_room_id:
+            self.cd_player_on = True
+            print("You inserted the batteries into the CD player. It is now on!")
+            return True
+        if item_name == "movie cd":
+            return self._handle_movie_cd(curr_location)
+        if item_name in {"lucky uoft mug", "laptop charger", "usb"} and curr_location.id_num == self.desk_room_id:
+            return self._handle_special_items(item_name)
+
+        return False  # Item could not be used
+
+    def _handle_movie_cd(self, curr_location: Location) -> bool:
+        """Handle the usage of the movie CD."""
+        if curr_location.id_num == self.cd_player_room_id and self.cd_player_on:
+            print("The CD player starts playing: Madagascar!")
+            return True
+        if curr_location.id_num == self.cd_player_room_id and not self.cd_player_on:
+            print("You must turn on the CD player first, you need some batteries...")
+            return False
+        return False
+
+    def _handle_special_items(self, item_name: str) -> bool:
+        """Handle items that contribute to the win condition."""
+        special_items = {
+            "lucky uoft mug": "You placed the Lucky UofT Mug on the desk beside your computer.",
+            "laptop charger": "You plugged in your laptop charger. Your laptop is now charging.",
+            "usb": "You plugged the USB into your computer."
+        }
+
+        if item_name in special_items:
+            print(special_items[item_name])
+            self.check_win_condition()
+            return True
+        return False
 
     def attempt_usb_retrieval(self) -> None:
         """Handle the process of safely retrieving the USB in the Library."""
@@ -207,41 +244,70 @@ class AdventureGame:
         else:
             print("Incorrect password. Try again later.")
 
-    def check_win_condition(self) -> None:
+    def check_win_condition(self) -> bool:
         """Check if the player has met the winning condition."""
-        if self.current_location_id == 1 and self.score == 30:
-            print("\n🎉 Congratulations! You successfully submitted your assignment and won scored 100%! 🎉\n")
+        if self.current_location_id == self.your_room_id and self.score == self.winning_score:
+            print("\n🎉 Congratulations! You successfully submitted your assignment and won, you scored 100%! 🎉\n")
             self.ongoing = False
+            return True
+
+    def process_menu_action(self, user_choice: str, log: EventList) -> None:
+        """Handle menu actions like inventory, score, log, quit, and undo."""
+        if user_choice == "log":
+            log.display_events()
+        elif user_choice == "quit":
+            self.ongoing = False
+        elif user_choice == "undo":
+            if self.moves >= 2:
+                self.moves -= 2
+            log.remove_last_event()
+            self.current_location_id = log.last.id_num if log.last else 1
+        elif choice == "inventory":
+            self.display_inventory()
+        elif choice == "score":
+            self.display_score()
+        elif choice == "look":
+            print(self.get_location().long_description)
+
+    def handle_take_or_use(self, user_choice: str) -> None:
+        """Process 'take' and 'use' commands."""
+        if user_choice.startswith("take "):
+            self.take_item(user_choice[len("take "):])
+        elif user_choice.startswith("use "):
+            self.use_item(user_choice[len("use "):])
+
+    def handle_special_actions(self, user_choice: str, loc: Location) -> None:
+        """Handle special commands for specific locations (e.g., retrieving USB)."""
+        library_room_id = 6
+        hasan_room_id = 4
+        if self.current_location_id == library_room_id and user_choice == "take usb":
+            if self.usb_ejected:
+                self.take_item("usb")
+            else:
+                print("You cannot take the USB drive until you safely eject it.")
+        elif self.current_location_id == library_room_id and choice == "retrieve usb":
+            self.attempt_usb_retrieval()
+        elif user_choice in loc.available_commands:
+            next_location_id = loc.available_commands[user_choice]
+            next_location = self.get_location(next_location_id)
+            if next_location_id == hasan_room_id and getattr(next_location, 'locked', False):
+                print("The door is locked. You need something to unlock it.")
+            else:
+                self.current_location_id = next_location_id
 
 
 if __name__ == "__main__":
-
-    # When you are ready to check your work with python_ta, uncomment the following lines.
-    # (Delete the "#" and space before each line.)
-    # IMPORTANT: keep this code indented inside the "if __name__ == '__main__'" block
-    # import python_ta
-    # python_ta.check_all(config={
-    #     'max-line-length': 120,
-    #     'disable': ['R1705', 'E9998', 'E9999']
-    # })
-
-    game_log = EventList()  # This is REQUIRED as one of the baseline requirements
-    game = AdventureGame('game_data.json', 1)  # load data, setting initial location ID to 1
-    menu = ["look", "inventory", "score", "undo", "log", "quit", "take", "use"]  # Regular menu options available
+    game_log = EventList()
+    game = AdventureGame('game_data.json', 1)
+    menu = ["look", "inventory", "score", "undo", "log", "quit", "take", "use"]
     choice = None
 
-    # Note: You may modify the code below as needed; the following starter code is just a suggestion
     while game.ongoing:
-        # Note: If the loop body is getting too long, you should split the body up into helper functions
-        # for better organization. Part of your marks will be based on how well-organized your code is.
-
+        if game.check_win_condition() is True:
+            break
         location = game.get_location()
-
-        # Add new Event to game log
         event = Event(game.current_location_id, location.brief_description, choice)
         game_log.add_event(event)
-
-        # Increment player moves by 1 each command
         game.moves += 1
         print(f"Moves remaining: {game.max_moves - game.moves}")
 
@@ -250,28 +316,18 @@ if __name__ == "__main__":
             game.ongoing = False
             break
 
-        # Print location description
-        if location.visited or location.long_description is None:
-            print(location.brief_description)
-        else:
-            print(location.long_description)
-            location.visited = True
+        print(location.brief_description if location.visited or location.long_description is None
+              else location.long_description)
+        location.visited = True
 
-        # Display possible actions at this location
-        print("What to do? Choose from: look, inventory, score, undo, log, quit, take, use")
-        print("At this location, you can also:")
-        for action in location.available_commands:
+        print("What to do? Choose from:", ", ".join(menu))
+        for action in list(location.available_commands.keys()) + location.special_commands:
             print("-", action)
-        for command in location.special_commands:
-            print("-", command)
 
-        # Validate choice
         choice = input("\nEnter action: ").lower().strip()
-        while (choice not in location.available_commands
-               and choice not in menu
+        while (choice not in location.available_commands and choice not in menu
                and choice not in location.special_commands
-               and not choice.startswith("take ")
-               and not choice.startswith("use ")):
+               and not choice.startswith("take ") and not choice.startswith("use ")):
             print("That was an invalid option; try again.")
             choice = input("\nEnter action: ").lower().strip()
 
@@ -279,50 +335,7 @@ if __name__ == "__main__":
         print("You decided to:", choice)
 
         if choice in menu:
-            if choice == "log":
-                game_log.display_events()
-            elif choice == "quit":
-                game.ongoing = False
-            elif choice == "undo":
-                if game.moves >= 2:
-                    game.moves -= 2
-                game_log.remove_last_event()
-                if game_log.last:
-                    game.current_location_id = game_log.last.id_num
-                else:
-                    game.current_location_id = 1  # Reset to starting location if no previous events
-            elif choice == "inventory":
-                game.display_inventory()
-            elif choice == "score":
-                game.display_score()
-            elif choice == "look":
-                print(game.get_location().long_description)
-        if choice.startswith("take "):
-            item_names = choice[len("take "):]
-            game.take_item(item_names)
-        if choice.startswith("use "):
-            item_names = choice[len("use "):]
-            game.use_item(item_names)
-
+            game.process_menu_action(choice, game_log)
         else:
-            if game.current_location_id == 6 and choice == "take usb":
-                # Check if USB is safely ejected before allowing the player to take it
-                if game.usb_ejected:
-                    game.take_item("usb")  # Allow the player to take the USB
-                else:
-                    print("You cannot take the USB drive until you safely eject it.")
-
-            elif game.current_location_id == 6 and choice == "retrieve usb":
-                # Library USB puzzle (eject USB safely)
-                game.attempt_usb_retrieval()
-
-            elif choice in location.available_commands:
-                # Check if the player is trying to enter Hasan's Room (ID 4)
-                next_location_id = location.available_commands[choice]
-                next_location = game.get_location(next_location_id)  # Retrieve the next location object
-
-                if next_location_id == 4 and getattr(next_location, 'locked', False):
-                    print("The door is locked. You need something to unlock it.")
-                else:
-                    # Move to the new location
-                    game.current_location_id = next_location_id
+            game.handle_take_or_use(choice)
+            game.handle_special_actions(choice, location)
