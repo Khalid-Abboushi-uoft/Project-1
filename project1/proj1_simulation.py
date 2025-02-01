@@ -152,5 +152,3 @@ if __name__ == "__main__":
     #                      "madagascar05252006"]
     # expected_log = [1, 20, 3, 22, 52, 51, 53, 6]
     # assert expected_log == AdventureGameSimulation('game_data.json', 1, retrieve_usb_demo).get_id_log()
-
-    # Note: You can add more code below for your own testing purposes

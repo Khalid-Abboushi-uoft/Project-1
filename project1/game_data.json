@@ -41,7 +41,7 @@
       "name": "Hasans Room",
       "grid_position": [1, 1],
       "brief_description": "Hasan's room.",
-      "long_description": "There is a movie CD in this room. I could play it if i had a CD player...",
+      "long_description": "There is a movie CD in this room. I wonder what movie it is. I could play it if i had a CD player...",
       "available_commands": {"go north": 20, "go east": 21},
       "locked": true,
       "items": ["movie cd"]
@@ -144,7 +144,7 @@
       "id": 7,
       "name": "College",
       "grid_position": [3, 0],
-      "brief_description": "You found your Lucky UofT Mug! How on earth did it end up here?. You also found some batteries...",
+      "brief_description": "You found your Lucky UofT Mug! Howdid it end up here?. You also found some batteries...",
       "long_description": "The College Building. Students are chatting.",
       "available_commands": {"go east": 61},
       "items": ["lucky uoft mug", "batteries"]
