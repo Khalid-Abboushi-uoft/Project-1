@@ -134,7 +134,7 @@
       "id": 6,
       "name": "Library",
       "grid_position": [1, 6],
-      "brief_description": "You found your usb you were working on earlier in the library. Also a lockpick on the desk... convenient.",
+      "brief_description": "You found usb you were working on  in the library. and a lockpick on the desk, convenient.",
       "long_description": "A quiet library filled with books.",
       "available_commands": {"go west": 53},
       "items": ["usb", "lockpick"],
