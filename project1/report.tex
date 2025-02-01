@@ -7,13 +7,14 @@
 
 \title{CSC111 Winter 2025 Project 1}
 \author{Khalid, Hasan}
-\date{\2025-01-28}
+\date{2025-01-28}
 
 \begin{document}
 \maketitle
 
 \section*{Running the game}
-We should be able to run your game by simply running \texttt{adventure.py}. If you have any other requirements (e.g., installing certain modules), describe them here. Otherwise, skip this section.
+We should be able to run your game by simply running \texttt{adventure.py}. If you have any other requirements (e.g.,
+installing certain modules), describe them here. Otherwise, skip this section.
 
 \section*{Game Map}
 Example game map below (edit it to show your actual game map):
@@ -29,81 +30,271 @@ Example game map below (edit it to show your actual game map):
 
 \end{verbatim}
 
-Starting location is: 1
+Starting location is: 1 \\
+The numbers are the location id's, -1 means that area is inaccessible
 
 \section*{Game solution}
 List of commands:
+
+"look", "go east", "go east", "go east", "go east", "go south", "go east", "go east", "look",
+        "take lockpick", "go west", "go west", "go west", "go west", "use lockpick", "go west",
+        "take movie cd", "go east", "go south", "go south", "go west", "go west", "look",
+        "take lucky uoft mug", "take batteries", "go east", "go east", "go south", "go south",
+        "go south", "look", "take laptop charger", "go north", "go north", "go north", "go north",
+        "go north", "go north", "use batteries", "use movie cd", "go east", "go east",
+        "go south", "go east", "go east", "retrieve usb", "madagascar05252006", "take usb",
+        "go west", "go west", "go west", "go west", "go north", "go west",
+        "use usb", "use laptop charger", "use lucky uoft mug"
 
 \section*{Lose condition(s)}
 Description of how to lose the game:
 
 List of commands:
+'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look',
+'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look',
+'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look',
+'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look',
+'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look' \\
+\textbf{Which parts of the code are involved in this functionality:} \\
 
-Which parts of your code are involved in this functionality:
+\textbf{File: \texttt{adventure.py}}
 
-% Copy-paste the above if you have multiple lose conditions and describe each possible way to lose the game
+\noindent\textbf{Lines 60-61:} (Initialization of move tracking)
+\begin{verbatim}
+    self.moves = 0
+    self.max_moves = 71
+\end{verbatim}
+\textbf{Explanation:} These attributes track the number of moves made by the user and the maximum allowed moves before
+losing the game.
+
+\noindent\textbf{Line 311:} (Incrementing move count)
+\begin{verbatim}
+    self.moves += 1
+\end{verbatim}
+\textbf{Explanation:} This line is inside the main game loop and increments the move counter by 1 every time the user
+takes an action.
+
+\noindent\textbf{Lines 314-317:} (Checking if the user has lost)
+\begin{verbatim}
+if self.moves >= self.max_moves:
+    print("\nYou ran out of time! You failed to submit your assignment. Game Over.")
+    self.ongoing = False
+    break
+\end{verbatim}
+\textbf{Explanation:} This block ensures that if the user has reached or exceeded the move limit, the game prints a
+failure message and ends immediately.
+
+This section of the game logic ensures that players must complete the required objectives within the number of moves
+allowed to avoid losing.
 
 \section*{Inventory}
 
 \begin{enumerate}
 \item All location IDs that involve items in the game:
 
-\item Item data:
+\section*{Inventory}
+
 \begin{enumerate}
-    \item For Item 1:
+    \item All location IDs that involve items in the game:
     \begin{itemize}
-    \item Item name:
-    \item Item start location ID:
-    \item Item target location ID:
+        \item 1, 3, 4, 6, 7, 8
     \end{itemize}
+
+    \item Item data:
+    \begin{enumerate}
+        \item For Item 1:
+        \begin{itemize}
+            \item Item name: usb
+            \item Item start location ID: 6
+            \item Item target location ID: 1
+        \end{itemize}
+
         \item For Item 2:
-    \begin{itemize}
-    \item Item name:
-    \item Item start location ID:
-    \item Item target location ID:
-    \end{itemize}
+        \begin{itemize}
+            \item Item name: lockpick
+            \item Item start location ID: 6
+            \item Item target location ID: None
+        \end{itemize}
+
         \item For Item 3:
-    \begin{itemize}
-    \item Item name:
-    \item Item start location ID:
-    \item Item target location ID:
-    \end{itemize}
-    % Copy-paste the above if you have more items, to list ALL items
+        \begin{itemize}
+            \item Item name: Lucky UofT Mug
+            \item Item start location ID: 7
+            \item Item target location ID: 1
+        \end{itemize}
+
+        \item For Item 4:
+        \begin{itemize}
+            \item Item name: Batteries
+            \item Item start location ID: 7
+            \item Item target location ID: 3
+        \end{itemize}
+
+        \item For Item 5:
+        \begin{itemize}
+            \item Item name: Laptop charger
+            \item Item start location ID: 8
+            \item Item target location ID: 1
+        \end{itemize}
+
+        \item For Item 6:
+        \begin{itemize}
+            \item Item name: Computer
+            \item Item start location ID: 1
+            \item Item target location ID: None
+        \end{itemize}
+
+        \item For Item 7:
+        \begin{itemize}
+            \item Item name: CD player
+            \item Item start location ID: 3
+            \item Item target location ID: None
+        \end{itemize}
+
+        \item For Item 8:
+        \begin{itemize}
+            \item Item name: Movie CD
+            \item Item start location ID: 4
+            \item Item target location ID: 3
+        \end{itemize}
+    \end{enumerate}
 \end{enumerate}
 
-    \item Exact command(s) that should be used to pick up an item (choose any one item for this example), and the command(s) used to use/drop the item (can copy the list you assigned to \texttt{inventory\_demo} in the \texttt{project1\_simulation.py} file)
-    \item Which parts of your code (file, class, function/method) are involved in handling the \texttt{inventory} command:
+
+    \item Exact command(s) that should be used to pick up an item (choose any one item for this example), and the
+    command(s) used to use/drop the item (can copy the list you assigned to \texttt{inventory\_demo} in the
+    \texttt{project1\_simulation.py} file)
+    \begin{verbatim}
+    ["go east", "go east", "go south", "go south", "go south", "go west", "go west",
+    "take batteries", "inventory", "go east", "go east", "go north", "go north", "go north", "go north",
+    "use batteries"]
+    \end{verbatim}
+    \item Which parts of your code (file, class, function/method) are involved in handling the \texttt{inventory}
+    command:
 \end{enumerate}
+
+\textbf{File: \texttt{adventure.py}}\\
+
+\noindent\textbf{Lines 56:} (Instance Attribute for Inventory)
+\begin{verbatim}
+    inventory: list[str]
+\end{verbatim}
+\textbf{Explanation:} This instance attribute stores the list of items the player currently possesses.
+
+\noindent\textbf{Lines 86:} (Inventory Initialization)
+\begin{verbatim}
+    self.inventory = []
+\end{verbatim}
+\textbf{Explanation:} The inventory is initialized as an empty list when a new game starts.
+
+\noindent\textbf{Lines 127-132:} (Displaying the Player's Inventory)
+\begin{verbatim}
+    def display_inventory(self) -> None:
+        """Display the player's inventory."""
+        if self.inventory:
+            print("Inventory:", ", ".join(self.inventory))
+        else:
+            print("Your inventory is empty.")
+\end{verbatim}
+\textbf{Explanation:} This function prints the list of items currently in the player's inventory. If no items are
+present, it displays a message stating that the inventory is empty.
+
+\noindent\textbf{Lines 265-266:} (Processing the \texttt{inventory} Command in Menu Actions)
+\begin{verbatim}
+    elif choice == "inventory":
+        self.display_inventory()
+\end{verbatim}
+\textbf{Explanation:} This is part of the menu command processing method. If the player selects `inventory`, the
+`display\_inventory` function is called, showing the player's current items.
 
 \section*{Score}
 \begin{enumerate}
 
-    \item Briefly describe the way players can earn scores in your game. Include the first location in which they can increase their score, and the exact list of command(s) leading up to the score increase:
+    \item Briefly describe the way players can earn scores in your game. Include the first location in which they can
+    increase their score, and the exact list of command(s) leading up to the score increase:
 
+The way players can earn scores is to place any of the three objects (Lucky UofT Mug, Laptop Charger, or USB) in their
+proper place (your room) each adds 10 score to the user's score, and when they reach 30 score, they win. For this
+reason, the first and only location they can increase their score in is the starter room (your room) since the objects
+must be placed there.
 
-    \item Copy the list you assigned to \texttt{scores\_demo} in the \texttt{project1\_simulation.py} file into this section of the report:
+Commands to lead to score increase:
 
+["go east", "go east", "go south", "go south", "go south", "go west", "go west", "take lucky uoft mug", "go east",
+"go east", "go north", "go north", "go north", "go west", "go west", "use lucky uoft mug", "score"]
 
-    \item Which parts of your code (file, class, function/method) are involved in handling the \texttt{score} functionality:
+    \item Copy the list you assigned to \texttt{scores\_demo} in the \texttt{project1\_simulation.py} file into this
+    section of the report:
+
+["go east", "go east", "go south", "go south", "go south", "go west", "go west", "take lucky uoft mug", "go east",
+"go east", "go north", "go north", "go north", "go west", "go west", "use lucky uoft mug", "score"]
+
+    \item Which parts of your code (file, class, function/method) are involved in handling the \texttt{score}
+    functionality:
 \end{enumerate}
+
+\textbf{File: \texttt{adventure.py}}\\
+
+\noindent\textbf{Lines 57:} (Instance Attribute for Score)
+\begin{verbatim}
+    score: int
+\end{verbatim}
+\textbf{Explanation:} This instance attribute stores the player's current score.
+
+\noindent\textbf{Lines 87:} (Score Initialization)
+\begin{verbatim}
+    self.score = 0
+\end{verbatim}
+\textbf{Explanation:} The score starts at 0 when a new game begins.
+
+\noindent\textbf{Lines 134-136:} (Displaying the Player's Score)
+\begin{verbatim}
+    def display_score(self) -> None:
+        """Display the player's current score."""
+        print(f"Current Score: {self.score}")
+\end{verbatim}
+\textbf{Explanation:} This function prints the current score to the player.
+
+\noindent\textbf{Lines 179-180:} (Handling Score Increase in \texttt{use\_item} Method)
+\begin{verbatim}
+        if self._can_use_item(item_name, curr_location, hasan_room):
+            self.score += item_obj.target_points
+\end{verbatim}
+\textbf{Explanation:} When an item is used correctly in the correct location, the score increases by the points
+assigned to that item.
+
+\noindent\textbf{Lines 267-268:} (Processing the \texttt{score} Command in Menu Actions)
+\begin{verbatim}
+    elif choice == "score":
+        self.display_score()
+\end{verbatim}
+\textbf{Explanation:} This is part of the menu command processing method. If the player selects `score`,
+the `display\_score` function is called, showing the player's current score.
 
 \section*{Enhancements}
 \begin{enumerate}
-    \item Describe your enhancement \#1 here
+    \item Retrieve USB Command and USB Puzzle
     \begin{itemize}
-        \item Brief description of what the enhancement is (if it's a puzzle, also describe what steps the player must take to solve it):
-        \item Complexity level (choose from low/medium/high):
-        \item Reasons you believe this is the complexity level (e.g., mention implementation details, how much code did you have to add/change from the baseline, what challenges did you face, etc.)
+        \item Brief description: This enhancement introduces a multi-step puzzle where the player must retrieve a
+        USB drive. To retrieve it safely, they must locate a photo in the starter room with a birthdate on the back
+        (needed for the password to eject the USB). The player then navigates through multiple locations to find and
+        use items correctly.
+        \item Complexity level: High
+        \item Reasons for complexity: The implementation required multiple location-based conditions, interactions with
+        multiple items, and logical sequencing of actions. The player must:
+        \begin{enumerate}
+            \item Find the photo in the starter room to get the birthdate.
+            \item Travel to the college to find and take batteries.
+            \item Go to the library to find and take a lockpick.
+            \item Use the lockpick to unlock Hasan's room.
+            \item Pick up the CD from Hasan's room.
+            \item Go to Khalid's room and turn on the CD player using the batteries.
+            \item Use the CD in the CD player, remember the movie name and birthday.
+            \item Return to the library and enter the correct password to retrieve the USB.
+        \end{enumerate}
+        The interdependencies between locations and items added significant complexity to the game logic, requiring
+        multiple updates to location-based conditions and item interactions.
     \end{itemize}
-
-    % Uncomment below section if you have more enhancements; copy-paste as needed
-    %\item Describe your enhancement here
-    %\begin{itemize}
-    %    \item Basic description of what the enhancement is:
-    %    \item Complexity level (low/medium/high):
-    %    \item Reasons you believe this is the complexity level (e.g., mention implementation details)
-    %\end{itemize}
 \end{enumerate}
-
 
 \end{document}
