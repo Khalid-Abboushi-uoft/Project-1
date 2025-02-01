@@ -142,13 +142,15 @@ if __name__ == "__main__":
     # expected_log = [1, 20, 3, 21, 57, 58, 61, 7]
     # assert expected_log == AdventureGameSimulation('game_data.json', 1, inventory_demo).get_id_log()
 
-    scores_demo = [..., "score", ...]
-    expected_log = []
-    assert expected_log == AdventureGameSimulation(...)
+    # scores_demo = ["go east", "go east", "go south", "go south", "go south", "go west", "go west",
+    #                "take lucky uoft mug", "go east", "go east", "go north", "go north", "go north", "go west",
+    #                "go west", "use lucky uoft mug", "score"]
+    # expected_log = [1, 20, 3, 21, 57, 58, 61, 7, 61, 58, 57, 21, 3, 20, 1]
+    # assert expected_log == AdventureGameSimulation('game_data.json', 1, scores_demo).get_id_log()
 
-    # Add more enhancement_demos if you have more enhancements
-    # enhancement1_demo = [...]
-    # expected_log = []
-    # assert expected_log == AdventureGameSimulation(...)
+    # retrieve_usb_demo = ["go east", "go east", "go east", "go east", "go south", "go east", "go east", "retrieve_usb",
+    #                      "madagascar05252006"]
+    # expected_log = [1, 20, 3, 22, 52, 51, 53, 6]
+    # assert expected_log == AdventureGameSimulation('game_data.json', 1, retrieve_usb_demo).get_id_log()
 
     # Note: You can add more code below for your own testing purposes
