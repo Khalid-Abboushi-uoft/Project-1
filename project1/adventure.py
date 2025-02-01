@@ -88,7 +88,7 @@ class AdventureGame:
         self.cd_player_on = False
         self.usb_ejected = False
         self.moves = 0
-        self.max_moves = 51
+        self.max_moves = 71
 
     @staticmethod
     def _load_game_data(filename: str) -> tuple[dict[int, Location], list[Item]]:
