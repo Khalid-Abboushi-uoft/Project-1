@@ -152,7 +152,8 @@ class AdventureGame:
         hasan_room = self._locations.get(4)
         item_obj = next((item for item in self._items if item.name.lower() == item_name.lower()), None)
         if item_name in self.inventory:
-            if item_name == "lockpick" and (curr_location.id_num == 20 or curr_location.id_num == 21) and hasan_room.locked:
+            if (item_name == "lockpick" and (curr_location.id_num == 20 or curr_location.id_num == 21) and
+                    hasan_room.locked):
                 hasan_room.locked = False
                 self.score += item_obj.target_points
                 print("You successfully unlocked Hasan's Room with the lockpick!")
