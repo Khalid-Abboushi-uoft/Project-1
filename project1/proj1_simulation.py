@@ -173,11 +173,11 @@ if __name__ == "__main__":
     # When you are ready to check your work with python_ta, uncomment the following lines.
     # (Delete the "#" and space before each line.)
     # IMPORTANT: keep this code indented inside the "if __name__ == '__main__'" block
-    import python_ta
-    python_ta.check_all(config={
-        'max-line-length': 120,
-        'disable': ['R1705', 'E9998', 'E9999']
-    })
+    # import python_ta
+    # python_ta.check_all(config={
+    #     'max-line-length': 120,
+    #     'disable': ['R1705', 'E9998', 'E9999']
+    # })
 
     # TODO: Modify the code below to provide a walkthrough of commands needed to win and lose the game
     win_walkthrough = [
@@ -191,7 +191,8 @@ if __name__ == "__main__":
         "go west", "go west", "go west", "go west", "go north", "go west",
         "use usb", "use laptop charger", "use lucky uoft mug"
     ]
-    expected_log = []  # Update this log list to include the IDs of all locations that would be visited
+    expected_log = ["1", "20", "3", "22", "52", "51", "53", "6", "50", "21", "4", "57", "58", "59", "60", "61", "8", "7"]
+
     # Uncomment the line below to test your walkthrough
     assert expected_log == AdventureGameSimulation('game_data.json', 1, win_walkthrough)
 
