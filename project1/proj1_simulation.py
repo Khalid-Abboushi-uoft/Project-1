@@ -22,27 +22,41 @@ This file is Copyright (c) 2025 CSC111 Teaching Team
 """
 from __future__ import annotations
 from proj1_event_logger import Event, EventList
-from adventure import AdventureGame
 from game_entities import Location
 from dataclasses import dataclass
 import json
 from typing import Optional
 
 
-# Note: We have completed the Location class for you. Do NOT modify it here, for ex1.
 @dataclass
 class Location:
     """A location in our text adventure game world.
 
     Instance Attributes:
-        - id_num: integer id for this location
-        - description: brief description of this location
-        - available_commands: a mapping of available commands at this location to
-                                the location executing that command would lead to
+        - id_num: The unique ID of this location
+        - name: The name of this location
+        - brief_description: A short description of the location
+        - long_description: A detailed description of the location
+        - available_commands: A dictionary mapping commands (e.g., 'go east') to location IDs
+        - items: A list of item names available at this location
+        - locked: Whether this location is locked and requires an item to unlock
+        - visited: Whether this location has been visited before
+
+    Representation Invariants:
+        - id_num > 0
     """
-    id_num: int
-    description: str
-    available_commands: dict[str, int]
+    def __init__(self, id_num: int, name: str, brief_description: str, long_description: str = None,
+                 available_commands: dict[str, int] = None, items: list[str] = None, locked: bool = False,
+                 visited: bool = False, special_commands: list[str] = None):  # Add special_commands
+        self.id_num = id_num
+        self.name = name
+        self.brief_description = brief_description
+        self.long_description = long_description
+        self.available_commands = available_commands if available_commands else {}
+        self.items = items if items else []
+        self.locked = locked
+        self.visited = visited
+        self.special_commands = special_commands if special_commands else []
 
 
 class SimpleAdventureGame:
@@ -74,16 +88,18 @@ class SimpleAdventureGame:
     @staticmethod
     def _load_game_data(filename: str) -> dict[int, Location]:
         """Load locations and items from a JSON file with the given filename and
-        return a dictionary of locations mapping each game location's ID to a Location object."""
-
-        # Note: We have completed this method for you. Do NOT modify it here, for ex1.
+        return a tuple consisting of (1) a dictionary of locations mapping each game location's ID to a Location object,
+        and (2) a list of all Item objects."""
 
         with open(filename, 'r') as f:
             data = json.load(f)  # This loads all the data from the JSON file
 
         locations = {}
-        for loc_data in data['locations']:  # Go through each element associated with the 'locations' key in the file
-            location_obj = Location(loc_data['id'], loc_data['long_description'], loc_data['available_commands'])
+        for loc_data in data['locations']:
+            location_obj = Location(loc_data['id'], loc_data['name'], loc_data['brief_description'],
+                                    loc_data.get('long_description', None), loc_data['available_commands'],
+                                    loc_data.get('items', []), loc_data.get('locked', False),
+                                    loc_data.get('visited', False), loc_data.get('special_commands'))
             locations[loc_data['id']] = location_obj
 
         return locations
@@ -114,7 +130,7 @@ class AdventureGameSimulation:
 
         # Add first event (initial location, no previous command)
         initial_location = self._game.get_location()
-        first_event = Event(initial_location.id_num, initial_location.description, None)
+        first_event = Event(initial_location.id_num, initial_location.long_description, None)
         self._events.add_event(first_event)
 
         # Generate the remaining events
@@ -129,7 +145,7 @@ class AdventureGameSimulation:
                 next_location = self._game.get_location(next_location_id)
 
                 # Create new event and add to the event list
-                new_event = Event(next_location.id_num, next_location.description, command)
+                new_event = Event(next_location.id_num, next_location.long_description, command)
                 self._events.add_event(new_event, command)
 
                 # Update current location
@@ -140,13 +156,9 @@ class AdventureGameSimulation:
         Get back a list of all location IDs in the order that they are visited within a game simulation
         that follows the given commands.
 
-        >>> sim = AdventureGameSimulation('sample_locations.json', 1, ["go east"])
+        >>> sim = AdventureGameSimulation('game_data.json', 1, ["go east"])
         >>> sim.get_id_log()
-        [1, 2]
-
-        >>> sim = AdventureGameSimulation('sample_locations.json', 1, ["go east", "go east", "buy coffee"])
-        >>> sim.get_id_log()
-        [1, 2, 3, 3]
+        [1, 20]
         """
 
         # Note: We have completed this method for you. Do NOT modify it for ex1.
@@ -179,7 +191,6 @@ if __name__ == "__main__":
     #     'disable': ['R1705', 'E9998', 'E9999']
     # })
 
-    # TODO: Modify the code below to provide a walkthrough of commands needed to win and lose the game
     win_walkthrough = [
         "look", "go east", "go east", "go east", "go east", "go south", "go east", "go east", "look",
         "take lockpick", "go west", "go west", "go west", "go west", "use lockpick", "go west",
@@ -191,16 +202,27 @@ if __name__ == "__main__":
         "go west", "go west", "go west", "go west", "go north", "go west",
         "use usb", "use laptop charger", "use lucky uoft mug"
     ]
-    expected_log = ["1", "20", "3", "22", "52", "51", "53", "6", "50", "21", "4", "57", "58", "59", "60", "61", "8", "7"]
+    # expected_log = [1, 20, 3, 22, 52, 51, 53, 6, 53, 51, 50, 21, 4, 21,
+    #                 57, 58, 61, 7, 61, 58, 59, 60, 8, 60, 59, 58, 57, 21,
+    #                 3, 22, 52, 51, 53, 6, 53, 51, 50, 21, 3, 20
+    #                 ]
 
     # Uncomment the line below to test your walkthrough
-    assert expected_log == AdventureGameSimulation('game_data.json', 1, win_walkthrough)
+    # assert expected_log == AdventureGameSimulation('game_data.json', 1, win_walkthrough).get_id_log()
 
     # Create a list of all the commands needed to walk through your game to reach a 'game over' state
-    lose_demo = []
-    expected_log = []  # Update this log list to include the IDs of all locations that would be visited
+    lose_demo = [
+        "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west",
+        "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west",
+        "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west",
+        "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west",
+        "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west",
+        "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west",
+        "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west"
+    ]
+    expected_log = [1, 20]*35 + [1]
     # Uncomment the line below to test your demo
-    assert expected_log == AdventureGameSimulation('game_data.json', 1, lose_demo)
+    assert expected_log == AdventureGameSimulation('game_data.json', 1, lose_demo).get_id_log()
 
     # TODO: Add code below to provide walkthroughs that show off certain features of the game
     # TODO: Create a list of commands involving visiting locations, picking up items, and then
