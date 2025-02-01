@@ -25,7 +25,7 @@ class Location:
     """A location in our text adventure game world.
 
     Instance Attributes:
-        - id_num: The unique ID of this location
+        - id_num: The unique ID of this location (must be > 0)
         - name: The name of this location
         - brief_description: A short description of the location
         - long_description: A detailed description of the location
@@ -33,13 +33,26 @@ class Location:
         - items: A list of item names available at this location
         - locked: Whether this location is locked and requires an item to unlock
         - visited: Whether this location has been visited before
+        - special_commands: Special actions a player can take in this location
 
     Representation Invariants:
-        - id_num > 0
+        - self.id_num > 0
     """
-    def __init__(self, id_num: int, name: str, brief_description: str, long_description: str = None,
-                 available_commands: dict[str, int] = None, items: list[str] = None, locked: bool = False,
-                 visited: bool = False, special_commands: list[str] = None):  # Add special_commands
+
+    id_num: int
+    name: str
+    brief_description: str
+    long_description: Optional[str]
+    available_commands: dict[str, int]
+    items: list[str]
+    locked: bool
+    visited: bool
+    special_commands: list[str]
+
+    def __init__(self, id_num: int, name: str, brief_description: str, long_description: Optional[str] = None,
+                 available_commands: Optional[dict[str, int]] = None, items: Optional[list[str]] = None,
+                 locked: bool = False, visited: bool = False, special_commands: Optional[list[str]] = None) -> None:
+        """Initialize a new location."""
         self.id_num = id_num
         self.name = name
         self.brief_description = brief_description
@@ -57,10 +70,21 @@ class Item:
     Instance Attributes:
         - name: The name of the item
         - description: A short description of the item
-        - start_position: The ID of the location where this item starts
-        - target_position: The ID of the location where this item should be returned (if applicable)
+        - start_position: The ID of the location where this item starts (must be > 0)
+        - target_position: The ID of the location where this item should be returned (if applicable, must be > 0)
         - target_points: The number of points this item contributes if placed correctly
+
+    Representation Invariants:
+        - self.start_position > 0
+        - self.target_position is None or self.target_position > 0
     """
+
+    name: str
+    description: str
+    start_position: int
+    target_position: Optional[int]
+    target_points: int
+
     def __init__(self, name: str, description: str, start_position: int, target_position: Optional[int],
                  target_points: int) -> None:
         """Initialize a new item."""
@@ -72,7 +96,6 @@ class Item:
 
 
 if __name__ == "__main__":
-    pass
     # When you are ready to check your work with python_ta, uncomment the following lines.
     # (Delete the "#" and space before each line.)
     # IMPORTANT: keep this code indented inside the "if __name__ == '__main__'" block
