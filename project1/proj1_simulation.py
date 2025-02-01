@@ -23,6 +23,7 @@ This file is Copyright (c) 2025 CSC111 Teaching Team
 from __future__ import annotations
 from proj1_event_logger import Event, EventList
 from game_entities import Location
+from adventure import AdventureGame
 from dataclasses import dataclass
 import json
 from typing import Optional
