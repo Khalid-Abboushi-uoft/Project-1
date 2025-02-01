@@ -221,20 +221,17 @@ if __name__ == "__main__":
         "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west",
         "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west"
     ]
-    expected_log = [1, 20]*35 + [1]
+    # expected_log = [1, 20]*35 + [1]
     # Uncomment the line below to test your demo
-    assert expected_log == AdventureGameSimulation('game_data.json', 1, lose_demo).get_id_log()
+    # assert expected_log == AdventureGameSimulation('game_data.json', 1, lose_demo).get_id_log()
 
-    # TODO: Add code below to provide walkthroughs that show off certain features of the game
-    # TODO: Create a list of commands involving visiting locations, picking up items, and then
-    #   checking the inventory, your list must include the "inventory" command at least once
-    # inventory_demo = [..., "inventory", ...]
-    # expected_log = []
-    # assert expected_log == AdventureGameSimulation(...)
+    # inventory_demo = ["go east", "go east", "go south", "go south", "go south", "go west", "go west", "take batteries", "inventory"]
+    # expected_log = [1, 20, 3, 21, 57, 58, 61, 7]
+    # assert expected_log == AdventureGameSimulation('game_data.json', 1, inventory_demo).get_id_log()
 
-    # scores_demo = [..., "score", ...]
-    # expected_log = []
-    # assert expected_log == AdventureGameSimulation(...)
+    scores_demo = [..., "score", ...]
+    expected_log = []
+    assert expected_log == AdventureGameSimulation(...)
 
     # Add more enhancement_demos if you have more enhancements
     # enhancement1_demo = [...]
