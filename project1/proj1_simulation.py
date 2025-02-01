@@ -133,7 +133,7 @@ if __name__ == "__main__":
     # assert expected_log == AdventureGameSimulation('game_data.json', 1, lose_demo).get_id_log()
 
     # inventory_demo = ["go east", "go east", "go south", "go south", "go south", "go west", "go west",
-    #                   "take batteries", "inventory"]
+    #                   "take batteries", "take lucky uoft mug", "inventory"]
     # expected_log = [1, 20, 3, 21, 57, 58, 61, 7]
     # assert expected_log == AdventureGameSimulation('game_data.json', 1, inventory_demo).get_id_log()
 
