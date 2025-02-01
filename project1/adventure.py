@@ -238,7 +238,7 @@ if __name__ == "__main__":
         # Add new Event to game log
         event = Event(game.current_location_id, location.brief_description, choice)
         game_log.add_event(event)
-
+        game_log.display_events()
         # Increment player moves by 1 each command
         game.moves += 1
         print(f"Moves remaining: {game.max_moves - game.moves}")
@@ -282,6 +282,8 @@ if __name__ == "__main__":
             elif choice == "quit":
                 game.ongoing = False
             elif choice == "undo":
+                if game.moves >= 2:
+                    game.moves -= 2
                 game_log.remove_last_event()
                 if game_log.last:
                     game.current_location_id = game_log.last.id_num
