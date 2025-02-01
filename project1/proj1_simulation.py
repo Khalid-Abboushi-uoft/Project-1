@@ -180,7 +180,17 @@ if __name__ == "__main__":
     })
 
     # TODO: Modify the code below to provide a walkthrough of commands needed to win and lose the game
-    win_walkthrough = []  # Create a list of all the commands needed to walk through your game to win it
+    win_walkthrough = [
+        "look", "go east", "go east", "go east", "go east", "go south", "go east", "go east", "look",
+        "take lockpick", "go west", "go west", "go west", "go west", "use lockpick", "go west",
+        "take movie cd", "go east", "go south", "go south", "go west", "go west", "look",
+        "take lucky uoft mug", "take batteries", "go east", "go east", "go south", "go south",
+        "go south", "look", "take laptop charger", "go north", "go north", "go north", "go north",
+        "go north", "go north", "use batteries", "use movie cd", "go east", "go east",
+        "go south", "go east", "go east", "retrieve usb", "madagascar05252006", "take usb",
+        "go west", "go west", "go west", "go west", "go north", "go west",
+        "use usb", "use laptop charger", "use lucky uoft mug"
+    ]
     expected_log = []  # Update this log list to include the IDs of all locations that would be visited
     # Uncomment the line below to test your walkthrough
     assert expected_log == AdventureGameSimulation('game_data.json', 1, win_walkthrough)
