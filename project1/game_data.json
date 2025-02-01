@@ -41,7 +41,7 @@
       "name": "Hasans Room",
       "grid_position": [1, 1],
       "brief_description": "Hasan's room.",
-      "long_description": "There is a movie CD in this room. I wonder what movie it is. I could play it if i had a CD player...",
+      "long_description": "exists a movie CD in the room. I wonder what movie it is. I need a CD player to play it...",
       "available_commands": {"go north": 20, "go east": 21},
       "locked": true,
       "items": ["movie cd"]
