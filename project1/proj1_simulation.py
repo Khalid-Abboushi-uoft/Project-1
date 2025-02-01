@@ -115,24 +115,22 @@ if __name__ == "__main__":
         "go west", "go west", "go west", "go west", "go north", "go west",
         "use usb", "use laptop charger", "use lucky uoft mug"
     ]
-    # expected_log = [1, 20, 3, 22, 52, 51, 53, 6, 53, 51, 50, 21, 4, 21,
-    #                 57, 58, 61, 7, 61, 58, 59, 60, 8, 60, 59, 58, 57, 21,
-    #                 3, 22, 52, 51, 53, 6, 53, 51, 50, 21, 3, 20
-    #                 ]
-
-    # Uncomment the line below to test your walkthrough
-    # assert expected_log == AdventureGameSimulation('game_data.json', 1, win_walkthrough).get_id_log()
+    expected_log = [1, 20, 3, 22, 52, 51, 53, 6, 53, 51, 50, 21, 4, 21,
+                    57, 58, 61, 7, 61, 58, 59, 60, 8, 60, 59, 58, 57, 21,
+                    3, 22, 52, 51, 53, 6, 53, 51, 50, 21, 3, 20
+                    ]
+    assert expected_log == AdventureGameSimulation('game_data.json', 1, win_walkthrough).get_id_log()
 
     # Create a list of all the commands needed to walk through your game to reach a 'game over' state
-    lose_demo = [
-        "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west",
-        "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west",
-        "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west",
-        "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west",
-        "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west",
-        "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west",
-        "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west"
-    ]
+    # lose_demo = [
+    #     "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west",
+    #     "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west",
+    #     "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west",
+    #     "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west",
+    #     "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west",
+    #     "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west",
+    #     "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west"
+    # ]
     # expected_log = [1, 20]*35 + [1]
     # Uncomment the line below to test your demo
     # assert expected_log == AdventureGameSimulation('game_data.json', 1, lose_demo).get_id_log()
