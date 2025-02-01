@@ -94,7 +94,6 @@ class EventList:
             self.last.next = event  # Link the last event to the new event
             event.prev = self.last  # Set the new event's previous reference to the old last event
             self.last = event  # Update the last event to be the newly added one
-        print(f"DEBUG: Added event - Location: {event.id_num}, Command: {event.next_command}")
 
     def remove_last_event(self) -> None:
         """Remove the last event from this event list.
