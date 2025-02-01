@@ -18,7 +18,7 @@ please consult our Course Syllabus.
 
 This file is Copyright (c) 2025 CSC111 Teaching Team
 """
-from typing import Dict, List, Optional
+from typing import Optional
 
 
 class Location:
