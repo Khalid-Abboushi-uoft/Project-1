@@ -122,16 +122,13 @@ if __name__ == "__main__":
     assert expected_log == AdventureGameSimulation('game_data.json', 1, win_walkthrough).get_id_log()
 
     # Create a list of all the commands needed to walk through your game to reach a 'game over' state
-    # lose_demo = [
-    #     "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west",
-    #     "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west",
-    #     "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west",
-    #     "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west",
-    #     "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west",
-    #     "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west",
-    #     "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west", "go east", "go west"
-    # ]
-    # expected_log = [1, 20]*35 + [1]
+    # lose_demo = ['look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look',
+    #              'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look',
+    #              'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look',
+    #              'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look',
+    #              'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look',
+    #              'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look', 'look']
+    # expected_log = [1]
     # Uncomment the line below to test your demo
     # assert expected_log == AdventureGameSimulation('game_data.json', 1, lose_demo).get_id_log()
 
