@@ -22,19 +22,36 @@ This file is Copyright (c) 2025 CSC111 Teaching Team
 from typing import Optional
 
 
+class LocationState:
+    """Represents the state of a location in the game.
+
+    Instance Attributes:
+        - items: A list of item names available at this location.
+        - locked: Whether this location is locked and requires an item to unlock.
+        - visited: Whether this location has been visited before.
+    """
+    items: list[str]
+    locked: bool
+    visited: bool
+
+    def __init__(self, items: Optional[list[str]] = None, locked: bool = False, visited: bool = False) -> None:
+        """Initialize the state of a location."""
+        self.items = items if items else []
+        self.locked = locked
+        self.visited = visited
+
+
 class Location:
     """A location in our text adventure game world.
 
     Instance Attributes:
-        - id_num: The unique ID of this location (must be > 0)
-        - name: The name of this location
-        - brief_description: A short description of the location
-        - long_description: A detailed description of the location
-        - available_commands: A dictionary mapping commands (e.g., 'go east') to location IDs
-        - items: A list of item names available at this location
-        - locked: Whether this location is locked and requires an item to unlock
-        - visited: Whether this location has been visited before
-        - special_commands: Special actions a player can take in this location
+        - id_num: The unique ID of this location (must be > 0).
+        - name: The name of this location.
+        - brief_description: A short description of the location.
+        - long_description: A detailed description of the location.
+        - available_commands: A dictionary mapping commands (e.g., 'go east') to location IDs.
+        - special_commands: Special actions a player can take in this location.
+        - state: The state of this location (includes items, locked status, and visited status).
 
     Representation Invariants:
         - self.id_num > 0
@@ -45,24 +62,20 @@ class Location:
     brief_description: str
     long_description: Optional[str]
     available_commands: dict[str, int]
-    items: list[str]
-    locked: bool
-    visited: bool
     special_commands: list[str]
+    state: LocationState
 
     def __init__(self, id_num: int, name: str, brief_description: str, long_description: Optional[str] = None,
-                 available_commands: Optional[dict[str, int]] = None, items: Optional[list[str]] = None,
-                 locked: bool = False, visited: bool = False, special_commands: Optional[list[str]] = None) -> None:
+                 available_commands: Optional[dict[str, int]] = None, special_commands: Optional[list[str]] = None,
+                 state: Optional[LocationState] = None) -> None:
         """Initialize a new location."""
         self.id_num = id_num
         self.name = name
         self.brief_description = brief_description
         self.long_description = long_description
         self.available_commands = available_commands if available_commands else {}
-        self.items = items if items else []
-        self.locked = locked
-        self.visited = visited
         self.special_commands = special_commands if special_commands else []
+        self.state = state if state else LocationState()
 
 
 class Item:
