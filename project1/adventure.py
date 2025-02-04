@@ -47,6 +47,7 @@ class AdventureGame:
         - current_location_id in self._locations
         - all(isinstance(loc, Location) for loc in self._locations.values())
         - all(isinstance(item, Item) for item in self._items)
+        - 0 <= self.moves <= self.max_moves
     """
 
     _locations: dict[int, Location]
