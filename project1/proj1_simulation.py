@@ -50,8 +50,25 @@ class AdventureGameSimulation:
         self.generate_events(commands, initial_location)
 
     def generate_events(self, commands: list[str], current_location: Location) -> None:
-        """Generate all events in this simulation.
         """
+        Generate all events in this simulation.
+
+        >>> sim = AdventureGameSimulation('game_data.json', 1, [])
+        >>> sim._events.get_id_log()  # No commands given, should only contain initial location
+        [1]
+
+        >>> sim = AdventureGameSimulation('game_data.json', 1, ["go east", "go north"])
+        >>> sim._events.get_id_log()  # Expect locations visited in order
+        [1, 20]
+
+        >>> first_event = sim._events.first
+        >>> first_event.id_num  # Initial location
+        1
+
+        >>> first_event.next_command  # No command for first event
+        'go east'
+        """
+
         for command in commands:
             if command in current_location.available_commands:
                 next_location_id = current_location.available_commands[command]
@@ -74,12 +91,20 @@ class AdventureGameSimulation:
         [1, 20]
         """
 
-        # Note: We have completed this method for you. Do NOT modify it for ex1.
-
         return self._events.get_id_log()
 
     def run(self) -> None:
-        """Run the game simulation and log location descriptions."""
+        """
+        Run the game simulation and log location descriptions.
+
+        >>> sim = AdventureGameSimulation('game_data.json', 1, ["go east","go east"])
+        >>> sim.run()
+        Your private dorm room. Your laptop is here that you need to submit the assignment.
+        You choose: go east
+        None
+        You choose: go east
+        None
+        """
 
         # Note: We have completed this method for you. Do NOT modify it for ex1.
 
