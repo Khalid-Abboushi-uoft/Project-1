@@ -21,7 +21,7 @@ from __future__ import annotations
 import json
 from typing import Optional
 
-from game_entities import Location, Item
+from game_entities import Location, Item, LocationState
 from proj1_event_logger import Event, EventList
 
 
@@ -103,10 +103,19 @@ class AdventureGame:
 
         locations = {}
         for loc_data in data['locations']:
-            location_obj = Location(loc_data['id'], loc_data['name'], loc_data['brief_description'],
-                                    loc_data.get('long_description', None), loc_data['available_commands'],
-                                    loc_data.get('items', []), loc_data.get('locked', False),
-                                    loc_data.get('visited', False), loc_data.get('special_commands'))
+            location_obj = Location(
+                loc_data['id'],
+                loc_data['name'],
+                loc_data['brief_description'],
+                loc_data.get('long_description', None),
+                loc_data.get('available_commands', {}),
+                loc_data.get('special_commands', []),
+                LocationState(
+                    items=loc_data.get('items', []),
+                    locked=loc_data.get('locked', False),
+                    visited=loc_data.get('visited', False)
+                )
+            )
             locations[loc_data['id']] = location_obj
 
         items = []
@@ -209,9 +218,9 @@ class AdventureGame:
         if not self._can_take_item(item_name):
             return  # Prevents taking restricted items
 
-        if item_name in curr_location.items:
+        if item_name in curr_location.state.items:
             self.inventory.append(item_name)
-            curr_location.items.remove(item_name)
+            curr_location.state.items.remove(item_name)
             print(f"You have taken {item_name}.")
 
     def _can_take_item(self, item_name: str) -> bool:
@@ -573,7 +582,7 @@ if __name__ == "__main__":
             game.game_state.ongoing = False
             break
 
-        print(location.brief_description if location.visited or location.long_description is None
+        print(location.brief_description if location.state.visited or location.long_description is None
               else location.long_description)
         location.visited = True
 

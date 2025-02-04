@@ -60,45 +60,128 @@ class EventList:
     last: Optional[Event]
 
     def __init__(self) -> None:
-        """Initialize a new empty event list."""
+        """
+        Initialize a new empty event list.
+
+        >>> event_list = EventList()
+        >>> event_list.first is None
+        True
+
+        >>> event_list.last is None
+        True
+
+        >>> event_list.is_empty()
+        True
+        """
 
         self.first = None
         self.last = None
 
     def display_events(self) -> None:
-        """Display all events in chronological order."""
+        """
+        Display all events in chronological order.
+
+        >>> event_list = EventList()
+        >>> event_list.display_events()  # Should print nothing since the list is empty
+
+        >>> event1 = Event(1, "Starting Room", None)
+        >>> event2 = Event(2, "Hallway", None)
+        >>> event3 = Event(3, "Library", None)
+
+        >>> event_list.add_event(event1)
+        >>> event_list.add_event(event2, "go east")
+        >>> event_list.add_event(event3, "go north")
+
+        >>> event_list.display_events()
+        Location: 1, Command: go east
+        Location: 2, Command: go north
+        Location: 3, Command: None
+        """
+
         curr = self.first
         while curr:
             print(f"Location: {curr.id_num}, Command: {curr.next_command}")
             curr = curr.next
 
     def is_empty(self) -> bool:
-        """Return whether this event list is empty."""
+        """
+        Return whether this event list is empty.
+
+        >>> event_list = EventList()
+        >>> event_list.is_empty()
+        True
+
+        >>> event1 = Event(1, "Starting Room", None)
+        >>> event_list.add_event(event1)
+        >>> event_list.is_empty()
+        False
+
+        >>> event_list.remove_last_event()  # Remove the only event
+        >>> event_list.is_empty()
+        True
+        """
 
         return self.first is None
 
     def add_event(self, event: Event, command: Optional[str] = None) -> None:
-        """Add the given new event to the end of this event list.
+        """
+        Add the given new event to the end of this event list.
         The given command is the command which was used to reach this new event, or None if this is the first
         event in the game.
+
+        >>> event_list = EventList()
+        >>> event_list.get_id_log()  # Should be empty initially
+        []
+
+        >>> event1 = Event(1, "Starting Room", None)
+        >>> event2 = Event(2, "Hallway", None)
+        >>> event3 = Event(3, "Library", None)
+
+        >>> event_list.add_event(event1)
+        >>> event_list.get_id_log()
+        [1]
+
+        >>> event_list.add_event(event2, "go east")  # Adds event with a command
+        >>> event_list.get_id_log()
+        [1, 2]
         """
+
         if self.is_empty():
             # If the list is empty, set this event as the first and last event.
             self.first = event
             self.last = event
         else:
             # Update the current last event's next pointer and next command only if it has not been set already.
-            assert self.last is not None  # for type checker
+            assert self.last is not None
             if self.last.next_command is None:
-                self.last.next_command = command  # Update the command to reach this new event
-            self.last.next = event  # Link the last event to the new event
-            event.prev = self.last  # Set the new event's previous reference to the old last event
-            self.last = event  # Update the last event to be the newly added one
+                self.last.next_command = command
+            self.last.next = event
+            event.prev = self.last
+            self.last = event
 
     def remove_last_event(self) -> None:
-        """Remove the last event from this event list.
-        If the list is empty, do nothing.
         """
+        Remove the last event from this event list.
+        If the list is empty, do nothing.
+
+        >>> event_list = EventList()
+        >>> event_list.remove_last_event()  # Should do nothing since list is empty
+        >>> event_list.get_id_log()
+        []
+
+        >>> event1 = Event(1, "Starting Room", None)
+        >>> event2 = Event(2, "Hallway", None)
+        >>> event3 = Event(3, "Library", None)
+
+        >>> event_list.add_event(event1)
+        >>> event_list.get_id_log()
+        [1]
+
+        >>> event_list.remove_last_event()  # Should remove the only event
+        >>> event_list.get_id_log()
+        []
+        """
+
         if self.is_empty():
             return
 
@@ -108,7 +191,7 @@ class EventList:
             self.last = None
             return
 
-            # Traverse the list to find the second-to-last event
+        # Traverse the list to find the second-to-last event
         curr = self.first
         while curr.next is not self.last:
             curr = curr.next
@@ -119,7 +202,24 @@ class EventList:
         self.last = curr
 
     def get_id_log(self) -> list[int]:
-        """Return a list of all location IDs visited for each event in this list, in sequence."""
+        """
+        Return a list of all location IDs visited for each event in this list, in sequence.
+
+        >>> event_list = EventList()
+        >>> event_list.get_id_log()  # No events added, should return an empty list
+        []
+
+        >>> event1 = Event(1, "Starting Room", None)
+        >>> event2 = Event(2, "Hallway", None)
+        >>> event3 = Event(3, "Library", None)
+
+        >>> event_list.add_event(event1)
+        >>> event_list.add_event(event2)
+        >>> event_list.add_event(event3)
+
+        >>> event_list.get_id_log()
+        [1, 2, 3]
+        """
 
         id_log = []
         curr = self.first
